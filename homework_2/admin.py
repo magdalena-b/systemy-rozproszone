@@ -31,6 +31,10 @@ def translate_input(option):
 def do_admin_stuff():
     msg_type_option = take_input()
     msg_type = translate_input(msg_type_option)
+    # print(msg_type)
+    print('Your message to ' + msg_type + ': ')
+    admins_msg = input()
+    # publish message to the right channel
 
 
 if __name__ == '__main__':
