@@ -8,7 +8,7 @@ connection = pika.BlockingConnection(
 )
 
 channel = connection.channel()
-channel.queue_declare(queue = 'h')
-channel.basic_publish(exchange = '', routing_key = 'h', body = 'h alo halo')
+channel.queue_declare(queue = 'Everest')
+channel.basic_publish(exchange = '', routing_key = 'halo', body = 'halo wieje halny')
 channel.close()
 

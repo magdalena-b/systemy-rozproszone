@@ -14,7 +14,7 @@ def callback(channel, method, properties, body):
 
 
 channel.basic_consume(
-    queue = 'h', on_message_callback = callback, auto_ack = True
+    queue = 'Everest', on_message_callback = callback, auto_ack = True
 )
 
 print('[*] Waiting for messages, to exit press ctrl + c')
