@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import pika
 
-# Consumer
+# Producer - wysyla zlecenia
+# Ekipy zamawiaja sprzet
 
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host = 'localhost')

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import pika
 
-# Producer
+# Consumer - odbiera zlecenia
+# Dostawca posiada liste dostepnych produktow
 
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host = 'localhost')
