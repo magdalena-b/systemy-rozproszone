@@ -3,6 +3,7 @@ import pika
 
 # Consumer - odbiera zlecenia
 # Dostawca posiada liste dostepnych produktow
+# 1. dostawca -> tlen, buty; 2. dostawca -> tlen, plecak
 
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host = 'localhost')
