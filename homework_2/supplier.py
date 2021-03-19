@@ -3,7 +3,16 @@ import pika
 
 # Consumer - odbiera zlecenia
 # Dostawca posiada liste dostepnych produktow
-# 1. dostawca -> tlen, buty; 2. dostawca -> tlen, plecak
+# 1. dostawca -> klucze: tlen, buty; 2. dostawca -> klucze: tlen, plecak
+
+# zlecenia identyfikowane sa przez nazwe Teamu oraz wewnetrzny
+# numer zlecenia nadany przez Suppliera
+
+
+def executr_order():
+    print("Working hard")
+    sleep(1)
+    # basicPublish("elo zrobione")
 
 
 def initialize_everything(queue_name, routing_key, message_body, exchange = ''):
@@ -17,6 +26,15 @@ def initialize_everything(queue_name, routing_key, message_body, exchange = ''):
 
 def do_supplier_stuff():
     connection, channel = initialize_everything('halo', 'halo', 'halo wieje halny')
+    
+    print("Supplier's name: ")
+    name = input()
+    print("Available products (oxygen, boots, pack): ")
+    products_input = input()
+    products = list(products_input.split(" "))
+    print(products)
+    
+    
     channel.close()
 
 

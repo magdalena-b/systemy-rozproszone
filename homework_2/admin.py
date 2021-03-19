@@ -8,6 +8,9 @@ message_type = ['teams', 'suppliers', 'everyone']
 # ALL dostawcy
 # ALL (ekipy i dostawcy)
 
+# dostaje kopie ALL wysylanych wiadomosci w systemie
+# exchange_admin, exchange_normal
+
 
 def take_input():
     print("Choose type of message to be sent:\nTo all teams: 1\nTo all suppliers: 2\nTo everyone: 3")
