@@ -12,8 +12,9 @@ def callback(channel, method, properties, body):
     print("[x] Received " + str(body.decode()))
 
 
-def place_an_order(channel):
+def place_an_order(team_name):
 
+    connection, channel = initialize_connection_and_exchange()
     print("Order: (you can order oxygen, boots, pack")
     while (1):
         order = input()
@@ -49,7 +50,8 @@ def do_team_stuff():
     print("Team's name: ")
     team_name = input()
 
-    order_thread = threading.Thread(target=place_an_order, args=(channel, ))
+    order_thread = threading.Thread(target=place_an_order, args=(team_name,))
+    order_thread.start()
 
     channel.queue_declare(team_name, durable=True)
     channel.queue_bind(exchange='Expedition',
