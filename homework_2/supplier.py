@@ -9,51 +9,48 @@ import pika
 # numer zlecenia nadany przez Suppliera
 
 
-admin_exchange_name = 'Admin'
-teams_exchange_name = 'Teams'
-suppliers_exchange_name = 'Suppliers'
-
-
 def execute_order():
     print("Working hard")
     sleep(1)
     # basicPublish("elo zrobione")
 
 
-def initialize_everything():
+def initialize_connection_and_exchange():
     
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))
-
     channel = connection.channel()
     channel.exchange_declare(exchange = 'Expedition', exchange_type = 'topic')
-    # channel.basic_publish(exchange = '', routing_key = routing_key, body = message_body)
     return connection, channel
 
+
 def do_supplier_stuff():
-    connection, channel = initialize_everything()
+    connection, channel = initialize_connection_and_exchange()
     
     print("Supplier's name: ")
-    name = input()
+    supplier_name = input()
     print("Available products (oxygen, boots, pack): ")
     products_input = input()
     products = list(products_input.split(" "))
     # print(products)
 
-    # admin_thread
-    # osobny thread na nasluchiwanie zlecen na kazdy available product
-    
     for product in products:
         channel.queue_declare(queue = product, durable = True)
-        channel.queue_bind(exchange = 'Expedition', queue = product) # bindowanie kolejki do exchange'a
+        channel.queue_bind(exchange = 'Expedition', queue = product, routing_key = 'order.' + product)
 
     channel.basic_qos(prefetch_count = 1) # rownowazenie obciazenia
 
-    channel.queue_declare(queue = queue_name, durable = True)
+    channel.queue_declare(queue = supplier_name, durable = True)
+    channel.queue_bind(exchange = 'Expedition', queue = supplier_name, routing_key = 'suppliers.*')
+
+
+    for product in products:
+        channel.basic_consume(queue = product, on_message_callback = callback, auto_ack = True)
+
+    channel.basic_consume(queue = supplier_name, on_message_callback = execute_order, auto_ack = True)    
+    channel.start_consuming()
 
 
 
-    
-    channel.close()
 
 
 if __name__ == '__main__':
