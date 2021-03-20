@@ -44,7 +44,7 @@ def do_supplier_stuff():
 
 
     for product in products:
-        channel.basic_consume(queue = product, on_message_callback = callback, auto_ack = True)
+        channel.basic_consume(queue = product, on_message_callback = execute_order, auto_ack = True)
 
     channel.basic_consume(queue = supplier_name, on_message_callback = execute_order, auto_ack = True)    
     channel.start_consuming()

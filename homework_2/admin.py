@@ -64,18 +64,24 @@ def send_messages():
     # publish message to the right channel
 
 
-def do_admin_stuff():
 
+def initialize_connection_and_exchange():
+    
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))
     channel = connection.channel()
     channel.exchange_declare(exchange = 'Expedition', exchange_type = 'topic')
+    return connection, channel
 
 
+def do_admin_stuff():
+
+    connection, channel = initialize_connection_and_exchange()
     send_messages_thread = threading.Thread(target = send_messages)
+    send_messages_thread.start()
 
     # admin nasluchuje skladania i potwierdzania zamowien
     channel.queue_declare('admin', durable = True)
-    channel.queue_bind(exchange = 'Expedition', queue = 'order.*')
+    channel.queue_bind(exchange = 'Expedition', queue = 'admin', routing_key = 'order.*')
     
     channel.basic_consume(queue = 'admin', on_message_callback = callback, auto_ack = True)
     channel.start_consuming()
