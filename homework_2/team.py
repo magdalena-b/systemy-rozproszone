@@ -6,6 +6,10 @@ import pika
 
 # channel.basicQos(10) -> moze byc max 10 unacknowledged messages w tym kanale
 
+admin_exchange_name = 'Admin'
+teams_exchange_name = 'Teams'
+suppliers_exchange_name = 'Suppliers'
+
 
 def callback(channel, method, properties, body):
     print("[x] Received " + str(body.decode()))

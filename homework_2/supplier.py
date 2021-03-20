@@ -9,7 +9,12 @@ import pika
 # numer zlecenia nadany przez Suppliera
 
 
-def executr_order():
+admin_exchange_name = 'Admin'
+teams_exchange_name = 'Teams'
+suppliers_exchange_name = 'Suppliers'
+
+
+def execute_order():
     print("Working hard")
     sleep(1)
     # basicPublish("elo zrobione")

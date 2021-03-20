@@ -3,6 +3,12 @@ import pika
 
 message_type = ['teams', 'suppliers', 'everyone']
 
+
+admin_exchange_name = 'Admin'
+teams_exchange_name = 'Teams'
+suppliers_exchange_name = 'Suppliers'
+
+
 # Admin wysyla 3 wiadomosci do:
 # ALL ekipy
 # ALL dostawcy
