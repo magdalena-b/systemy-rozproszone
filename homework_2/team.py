@@ -25,6 +25,10 @@ def initialize_everything():
 
 def do_team_stuff():
     connection, channel = initialize_everything()
+    
+    # admin_thread
+    while(1):
+        # zlecaj
 
 
 if __name__ == '__main__':

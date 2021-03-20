@@ -33,6 +33,9 @@ def do_supplier_stuff():
     products_input = input()
     products = list(products_input.split(" "))
     print(products)
+
+    # admin_thread
+    # osobny thread na nasluchiwanie zlecen na kazdy available product
     
     
     channel.close()
