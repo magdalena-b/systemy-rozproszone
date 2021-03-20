@@ -16,24 +16,25 @@ def place_an_order(channel):
 
         print("Order: (you can order oxygen, boots, pack")
         while(1):
-        order = input()
-        if order == 'oxygen':
-            msg = team_name + ' oxygen'
-            channel.basic_publish(exchange = 'Expedition', routing_key = 'order.oxygen', body = msg)
-        elif order == 'boots':
-            msg = team_name + ' pack'
-            channel.basic_publish(exchange = 'Expedition', routing_key = 'order.boots', body = msg)
-        elif order == 'pack':
-            msg = team_name + ' pack'
-            channel.basic_publish(exchange = 'Expedition', routing_key = 'order.pack', body = msg)
-        else:
-            print("Wrong input")
+            order = input()
+            if order == 'oxygen':
+                msg = team_name + ' oxygen'
+                channel.basic_publish(exchange = 'Expedition', routing_key = 'order.oxygen', body = msg)
+            elif order == 'boots':
+                msg = team_name + ' pack'
+                channel.basic_publish(exchange = 'Expedition', routing_key = 'order.boots', body = msg)
+            elif order == 'pack':
+                msg = team_name + ' pack'
+                channel.basic_publish(exchange = 'Expedition', routing_key = 'order.pack', body = msg)
+            else:
+                print("Wrong input")
 
 
 def initialize_connection_and_exchange():
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))
-    channel.exchange_declare(exchange = 'Expedition', exchange_type = 'topic')    
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))   
     channel = connection.channel()
+    channel.exchange_declare(exchange = 'Expedition', exchange_type = 'topic') 
+    return connection, channel
 
 
 def do_team_stuff():
