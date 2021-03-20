@@ -15,6 +15,11 @@ message_type = ['teams', 'suppliers', 'everyone']
 # exchange_admin, exchange_normal
 
 
+def callback(channel, method, properties, body):
+    print("[x] Received " + str(body.decode()))
+
+
+
 def take_input():
     print("Choose type of message to be sent:\nTo all teams: 1\nTo all suppliers: 2\nTo everyone: 3")
     msg_type_option = input()
@@ -68,8 +73,8 @@ def do_admin_stuff():
     channel.queue_declare('admin', durable = True)
     channel.queue_bind(exchange = 'Expedition', queue = 'order.*')
     
-
-
+    channel.basic_consume(queue = 'admin', on_message_callback = callback, auto_ack = True)
+    channel.start_consuming()
 
 
 if __name__ == '__main__':

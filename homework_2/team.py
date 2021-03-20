@@ -22,9 +22,8 @@ def place_an_order():
 def initialize_everything():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))
     channel = connection.channel()
-    channel.basic_consume(queue = 'halo', on_message_callback = callback, auto_ack = True)
-    print('[*] Waiting for messages, to exit press ctrl + c')
-    channel.start_consuming()
+    # channel.basic_consume(queue = 'halo', on_message_callback = callback, auto_ack = True)
+    # channel.start_consuming()
 
 
 def do_team_stuff():
