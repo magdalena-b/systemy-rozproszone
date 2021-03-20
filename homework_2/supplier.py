@@ -41,6 +41,7 @@ def do_supplier_stuff():
 
     channel.queue_declare(queue = supplier_name, durable = True)
     channel.queue_bind(exchange = 'Expedition', queue = supplier_name, routing_key = 'suppliers.*')
+    channel.queue_bind(exchange = 'Expedition', queue = supplier_name, routing_key = 'all.*')
 
 
     for product in products:

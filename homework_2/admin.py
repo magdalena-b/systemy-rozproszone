@@ -44,22 +44,6 @@ def translate_input(option):
         translate_input(x2)
 
 
-def send_messages():
-    msg_type_option = take_input()
-    msg_type = translate_input(msg_type_option)
-    # print(msg_type)
-    print('Your message to ' + msg_type + ': ')
-    admin_msg = input()
-
-    if msg_type == 'teams':
-        channel.basic_publish(exchange = 'Expedition', routing_key = 'teams.*', body = admin_msg)
-    elif msg_type == 'suppliers':
-        channel.basic_publish(exchange = 'Expedition', routing_key = 'suppliers.*', body = admin_msg)
-    elif msg_type == 'everyone':
-        channel.basic_publish(exchange = 'Expedition', routing_key = 'teams.*', body = admin_msg)
-        channel.basic_publish(exchange = 'Expedition', routing_key = 'suppliers.*', body = admin_msg)
-
-
 def initialize_connection_and_exchange():
     
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))
@@ -68,18 +52,44 @@ def initialize_connection_and_exchange():
     return connection, channel
 
 
-def do_admin_stuff():
+def send_messages():
 
     connection, channel = initialize_connection_and_exchange()
-    send_messages_thread = threading.Thread(target = send_messages)
-    send_messages_thread.start()
+    while True:
+        msg_type_option = take_input()
+        msg_type = translate_input(msg_type_option)
+        # print(msg_type)
+        print('Your message to ' + msg_type + ': ')
+        admin_msg_input = input()
+        admin_msg = "Admin " + admin_msg_input
 
+        if msg_type == 'teams':
+            channel.basic_publish(exchange = 'Expedition', routing_key = 'teams.*', body = admin_msg)
+        elif msg_type == 'suppliers':
+            channel.basic_publish(exchange = 'Expedition', routing_key = 'suppliers.*', body = admin_msg)
+        elif msg_type == 'everyone':
+            channel.basic_publish(exchange = 'Expedition', routing_key = 'all.*', body = admin_msg)
+
+
+def listen_to_messages():
     # admin nasluchuje skladania i potwierdzania zamowien
+    connection, channel = initialize_connection_and_exchange()
     channel.queue_declare('admin', durable = True)
     channel.queue_bind(exchange = 'Expedition', queue = 'admin', routing_key = 'order.*')
     
     channel.basic_consume(queue = 'admin', on_message_callback = callback, auto_ack = True)
     channel.start_consuming()
+
+
+def do_admin_stuff():
+
+    send_messages_thread = threading.Thread(target = send_messages)
+    listen_to_messages_thread = threading.Thread(target = listen_to_messages)
+    
+    send_messages_thread.start()
+    listen_to_messages_thread.start()
+
+
 
 
 if __name__ == '__main__':

@@ -47,6 +47,7 @@ def do_team_stuff():
     channel.queue_declare(team_name, durable = True)
     channel.queue_bind(exchange = 'Expedition', queue = team_name, routing_key = "order." + team_name)
     channel.queue_bind(exchange = 'Expedition', queue = team_name, routing_key = "team.*")
+    channel.queue_bind(exchange = 'Expedition', queue = team_name, routing_key = 'all.*')
 
 
 if __name__ == '__main__':
