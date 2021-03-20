@@ -16,16 +16,17 @@ def execute_order():
 
 
 def initialize_connection_and_exchange():
-    
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))
+
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
-    channel.exchange_declare(exchange = 'Expedition', exchange_type = 'topic')
+    channel.exchange_declare(exchange='Expedition', exchange_type='topic')
     return connection, channel
 
 
 def do_supplier_stuff():
     connection, channel = initialize_connection_and_exchange()
-    
+
     print("Supplier's name: ")
     supplier_name = input()
     print("Available products (oxygen, boots, pack): ")
@@ -34,28 +35,31 @@ def do_supplier_stuff():
     # print(products)
 
     for product in products:
-        channel.queue_declare(queue = product, durable = True)
-        channel.queue_bind(exchange = 'Expedition', queue = product, routing_key = 'order.' + product)
+        channel.queue_declare(queue=product, durable=True)
+        channel.queue_bind(exchange='Expedition',
+                           queue=product,
+                           routing_key='order.' + product)
 
-    channel.basic_qos(prefetch_count = 1) # rownowazenie obciazenia
+    channel.basic_qos(prefetch_count=1)  # rownowazenie obciazenia
 
-    channel.queue_declare(queue = supplier_name, durable = True)
-    channel.queue_bind(exchange = 'Expedition', queue = supplier_name, routing_key = 'suppliers.*')
-    channel.queue_bind(exchange = 'Expedition', queue = supplier_name, routing_key = 'all.*')
-
+    channel.queue_declare(queue=supplier_name, durable=True)
+    channel.queue_bind(exchange='Expedition',
+                       queue=supplier_name,
+                       routing_key='suppliers.*')
+    channel.queue_bind(exchange='Expedition',
+                       queue=supplier_name,
+                       routing_key='all.*')
 
     for product in products:
-        channel.basic_consume(queue = product, on_message_callback = execute_order, auto_ack = True)
+        channel.basic_consume(queue=product,
+                              on_message_callback=execute_order,
+                              auto_ack=True)
 
-    channel.basic_consume(queue = supplier_name, on_message_callback = execute_order, auto_ack = True)    
+    channel.basic_consume(queue=supplier_name,
+                          on_message_callback=execute_order,
+                          auto_ack=True)
     channel.start_consuming()
-
-
-
 
 
 if __name__ == '__main__':
     do_supplier_stuff()
-
-
-
