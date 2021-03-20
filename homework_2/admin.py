@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 import pika
+import threading
 
 message_type = ['teams', 'suppliers', 'everyone']
 
-
-admin_exchange_name = 'Admin'
-teams_exchange_name = 'Teams'
-suppliers_exchange_name = 'Suppliers'
 
 
 # Admin wysyla 3 wiadomosci do:
@@ -37,13 +34,42 @@ def translate_input(option):
         x2 = take_input()
         translate_input(x2)
 
-def do_admin_stuff():
+
+def send_messages():
     msg_type_option = take_input()
     msg_type = translate_input(msg_type_option)
     # print(msg_type)
     print('Your message to ' + msg_type + ': ')
     admins_msg = input()
+
+    if msg_type == 'teams':
+        pass
+        # basic publish na teams.*
+    elif msg_type == 'suppliers':
+        pass
+        # basic publish na suppliers.*
+    elif msg_type == 'everyone':
+        pass
+        # basic publish na teams.* i suppliers.*
+
     # publish message to the right channel
+
+
+def do_admin_stuff():
+
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))
+    channel = connection.channel()
+    channel.exchange_declare(exchange = 'Expedition', exchange_type = 'topic')
+
+
+    send_messages_thread = threading.Thread(target = send_messages)
+
+    # admin nasluchuje skladania i potwierdzania zamowien
+    channel.queue_declare('admin', durable = True)
+    channel.queue_bind(exchange = 'Expedition', queue = 'order.*')
+    
+
+
 
 
 if __name__ == '__main__':

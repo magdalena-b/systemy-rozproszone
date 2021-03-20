@@ -20,28 +20,38 @@ def execute_order():
     # basicPublish("elo zrobione")
 
 
-def initialize_everything(queue_name, routing_key, message_body, exchange = ''):
+def initialize_everything():
     
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))
 
     channel = connection.channel()
-    channel.queue_declare(queue = queue_name)
-    channel.basic_publish(exchange = '', routing_key = routing_key, body = message_body)
+    channel.exchange_declare(exchange = 'Expedition', exchange_type = 'topic')
+    # channel.basic_publish(exchange = '', routing_key = routing_key, body = message_body)
     return connection, channel
 
 def do_supplier_stuff():
-    connection, channel = initialize_everything('halo', 'halo', 'halo wieje halny')
+    connection, channel = initialize_everything()
     
     print("Supplier's name: ")
     name = input()
     print("Available products (oxygen, boots, pack): ")
     products_input = input()
     products = list(products_input.split(" "))
-    print(products)
+    # print(products)
 
     # admin_thread
     # osobny thread na nasluchiwanie zlecen na kazdy available product
     
+    for product in products:
+        channel.queue_declare(queue = product, durable = True)
+        channel.queue_bind(exchange = 'Expedition', queue = product) # bindowanie kolejki do exchange'a
+
+    channel.basic_qos(prefetch_count = 1) # rownowazenie obciazenia
+
+    channel.queue_declare(queue = queue_name, durable = True)
+
+
+
     
     channel.close()
 
