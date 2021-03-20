@@ -49,20 +49,15 @@ def send_messages():
     msg_type = translate_input(msg_type_option)
     # print(msg_type)
     print('Your message to ' + msg_type + ': ')
-    admins_msg = input()
+    admin_msg = input()
 
     if msg_type == 'teams':
-        pass
-        # basic publish na teams.*
+        channel.basic_publish(exchange = 'Expedition', routing_key = 'teams.*', body = admin_msg)
     elif msg_type == 'suppliers':
-        pass
-        # basic publish na suppliers.*
+        channel.basic_publish(exchange = 'Expedition', routing_key = 'suppliers.*', body = admin_msg)
     elif msg_type == 'everyone':
-        pass
-        # basic publish na teams.* i suppliers.*
-
-    # publish message to the right channel
-
+        channel.basic_publish(exchange = 'Expedition', routing_key = 'teams.*', body = admin_msg)
+        channel.basic_publish(exchange = 'Expedition', routing_key = 'suppliers.*', body = admin_msg)
 
 
 def initialize_connection_and_exchange():
