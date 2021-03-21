@@ -76,7 +76,6 @@ def order_stuff(supplier_name):
     print("Available products (oxygen, boots, pack): ")
     products_input = input()
     products = list(products_input.split(" "))
-    # print(products)
 
     for product in products:
         channel.queue_declare(queue=product, durable=True)
@@ -84,8 +83,7 @@ def order_stuff(supplier_name):
                         queue=product,
                         routing_key='order.' + product)
 
-    channel.basic_qos(prefetch_count = 10)  # rownowazenie obciazenia
-
+    channel.basic_qos(prefetch_count = 10)
     channel.queue_declare(queue=supplier_name, durable=True)
 
 

@@ -4,18 +4,6 @@ import threading
 
 message_type = ['teams', 'suppliers', 'everyone']
 
-# channel.queue_bind(exchange = exchange_name, queue = queue_name, routing_key = "bla.*")
-# What the code is telling: I, "queue_name", am interested in the message from "exchange_name".
-
-# Admin wysyla 3 wiadomosci do:
-# ALL ekipy
-# ALL dostawcy
-# ALL (ekipy i dostawcy)
-
-# dostaje kopie ALL wysylanych wiadomosci w systemie
-# exchange_admin, exchange_normal
-
-
 def callback(channel, method, properties, body):
     print("Shop: " + str(body.decode()))
 
