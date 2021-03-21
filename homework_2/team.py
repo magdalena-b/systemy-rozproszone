@@ -47,22 +47,26 @@ def initialize_connection_and_exchange():
 
 def do_team_stuff():
     connection, channel = initialize_connection_and_exchange()
-    print("Team's name: ")
-    team_name = input()
+    try:
+        print("Team's name: ")
+        team_name = input()
 
-    order_thread = threading.Thread(target=place_an_order, args=(team_name,))
-    order_thread.start()
+        order_thread = threading.Thread(target=place_an_order, args=(team_name,))
+        order_thread.start()
 
-    channel.queue_declare(team_name, durable=True)
-    channel.queue_bind(exchange='Expedition',
-                       queue=team_name,
-                       routing_key="order." + team_name)
-    channel.queue_bind(exchange='Expedition',
-                       queue=team_name,
-                       routing_key="team.*")
-    channel.queue_bind(exchange='Expedition',
-                       queue=team_name,
-                       routing_key='all.*')
+        channel.queue_declare(team_name, durable=True)
+        channel.queue_bind(exchange='Expedition',
+                        queue=team_name,
+                        routing_key="order." + team_name)
+        channel.queue_bind(exchange='Expedition',
+                        queue=team_name,
+                        routing_key="team.*")
+        channel.queue_bind(exchange='Expedition',
+                        queue=team_name,
+                        routing_key='all.*')
+    except:
+        print('Byee')
+        channel.close()
 
 
 if __name__ == '__main__':
