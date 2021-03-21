@@ -26,6 +26,9 @@ def admin_stuff(team_name):
     channel.queue_bind(exchange='Expedition',
                        queue=team_name,
                        routing_key='teams.*')
+    channel.queue_bind(exchange='Expedition',
+                        queue=team_name,
+                        routing_key='all.*')
 
     channel.basic_consume(queue=team_name,
                           on_message_callback=callback,
@@ -43,12 +46,7 @@ def order_stuff(team_name):
         channel.queue_bind(exchange='Expedition',
                         queue=team_name,
                         routing_key="order." + team_name)
-        channel.queue_bind(exchange='Expedition',
-                        queue=team_name,
-                        routing_key="team.*")
-        channel.queue_bind(exchange='Expedition',
-                        queue=team_name,
-                        routing_key='all.*')
+
 
         print("Order (you can order oxygen, boots, pack):")
         while (1):

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import pika
 import time
+import threading
 
 # Consumer - odbiera zlecenia
 # Dostawca posiada liste dostepnych produktow
@@ -10,8 +11,8 @@ import time
 # numer zlecenia nadany przez Suppliera
 
 
-def exit_handler(channel):
-    channel.close()
+def callback(channel, method, properties, body):
+    print("[x] Received " + str(body.decode()))
 
 
 def execute_order(channel, method, properties, body):
@@ -39,6 +40,12 @@ def admin_stuff(supplier_name):
     channel.queue_bind(exchange='Expedition',
                        queue=supplier_name,
                        routing_key='suppliers.*')
+    channel.queue_bind(exchange='Expedition',
+                        queue=supplier_name,
+                        routing_key='suppliers.*')
+    channel.queue_bind(exchange='Expedition',
+                        queue=supplier_name,
+                        routing_key='all.*')
 
     channel.basic_consume(queue=supplier_name,
                           on_message_callback=callback,
@@ -64,12 +71,7 @@ def order_stuff(supplier_name):
         channel.basic_qos(prefetch_count=1)  # rownowazenie obciazenia
 
         channel.queue_declare(queue=supplier_name, durable=True)
-        channel.queue_bind(exchange='Expedition',
-                        queue=supplier_name,
-                        routing_key='suppliers.*')
-        channel.queue_bind(exchange='Expedition',
-                        queue=supplier_name,
-                        routing_key='all.*')
+
 
         for product in products:
             channel.basic_consume(queue=product,
@@ -90,6 +92,9 @@ def do_supplier_stuff():
 
     order_thread = threading.Thread(target = order_stuff, args=(supplier_name,))
     admin_thread = threading.Thread(target = admin_stuff, args=(supplier_name,))
+
+    order_thread.start()
+    admin_thread.start()
 
 
 if __name__ == '__main__':
