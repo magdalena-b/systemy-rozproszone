@@ -39,38 +39,34 @@ def admin_stuff(team_name):
 
 def order_stuff(team_name):
     connection, channel = initialize_connection_and_exchange()
-    try:
+
+    channel.queue_declare(team_name, durable=True)
+    channel.queue_bind(exchange='Expedition',
+                    queue=team_name,
+                    routing_key="order." + team_name)
 
 
-        channel.queue_declare(team_name, durable=True)
-        channel.queue_bind(exchange='Expedition',
-                        queue=team_name,
-                        routing_key="order." + team_name)
+    print("Order (you can order oxygen, boots, pack):")
+    while (1):
+        order = input()
+        if order == 'oxygen':
+            msg = team_name + ' oxygen'
+            channel.basic_publish(exchange='Expedition',
+                                routing_key='order.oxygen',
+                                body=msg)
+        elif order == 'boots':
+            msg = team_name + ' boots'
+            channel.basic_publish(exchange='Expedition',
+                                routing_key='order.boots',
+                                body=msg)
+        elif order == 'pack':
+            msg = team_name + ' pack'
+            channel.basic_publish(exchange='Expedition',
+                                routing_key='order.pack',
+                                body=msg)
+        else:
+            print("Wrong input")
 
-
-        print("Order (you can order oxygen, boots, pack):")
-        while (1):
-            order = input()
-            if order == 'oxygen':
-                msg = team_name + ' oxygen'
-                channel.basic_publish(exchange='Expedition',
-                                    routing_key='order.oxygen',
-                                    body=msg)
-            elif order == 'boots':
-                msg = team_name + ' boots'
-                channel.basic_publish(exchange='Expedition',
-                                    routing_key='order.boots',
-                                    body=msg)
-            elif order == 'pack':
-                msg = team_name + ' pack'
-                channel.basic_publish(exchange='Expedition',
-                                    routing_key='order.pack',
-                                    body=msg)
-            else:
-                print("Wrong input")
-    except:
-        print('Byee')
-        channel.close()
 
 
 

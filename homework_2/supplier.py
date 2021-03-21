@@ -11,14 +11,19 @@ import threading
 # numer zlecenia nadany przez Suppliera
 
 
+order_id = 0
+
 def callback(channel, method, properties, body):
     print("[x] Received " + str(body.decode()))
 
 
 def execute_order(channel, method, properties, body):
+    
+    global order_id
 
+    order_id += 1
     print("Received order: " + body.decode())
-    print("Working hard")
+    print("Working hard on " + str(order_id))
     time.sleep(1)
     channel.basic_ack(delivery_tag = method.delivery_tag)
     # basicPublish("elo zrobione")
@@ -56,33 +61,30 @@ def admin_stuff(supplier_name):
 def order_stuff(supplier_name):
     connection, channel = initialize_connection_and_exchange()
 
-    try:
-        print("Available products (oxygen, boots, pack): ")
-        products_input = input()
-        products = list(products_input.split(" "))
-        # print(products)
+    print("Available products (oxygen, boots, pack): ")
+    products_input = input()
+    products = list(products_input.split(" "))
+    # print(products)
 
-        for product in products:
-            channel.queue_declare(queue=product, durable=True)
-            channel.queue_bind(exchange='Expedition',
-                            queue=product,
-                            routing_key='order.' + product)
+    for product in products:
+        channel.queue_declare(queue=product, durable=True)
+        channel.queue_bind(exchange='Expedition',
+                        queue=product,
+                        routing_key='order.' + product)
 
-        channel.basic_qos(prefetch_count=1)  # rownowazenie obciazenia
+    channel.basic_qos(prefetch_count=1)  # rownowazenie obciazenia
 
-        channel.queue_declare(queue=supplier_name, durable=True)
+    channel.queue_declare(queue=supplier_name, durable=True)
 
 
-        for product in products:
-            channel.basic_consume(queue=product,
-                                on_message_callback=execute_order)
-
-        channel.basic_consume(queue=supplier_name,
+    for product in products:
+        channel.basic_consume(queue=product,
                             on_message_callback=execute_order)
-        channel.start_consuming()
-    except:
-        print('Byee')
-        channel.close()        
+
+    channel.basic_consume(queue=supplier_name,
+                        on_message_callback=execute_order)
+    channel.start_consuming()
+       
 
 
 def do_supplier_stuff():
