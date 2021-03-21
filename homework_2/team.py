@@ -9,7 +9,7 @@ import threading
 
 
 def callback(channel, method, properties, body):
-    print("[x] Received " + str(body.decode()))
+    print(body.decode())
 
 
 def initialize_connection_and_exchange():
@@ -53,16 +53,19 @@ def order_stuff(team_name):
             msg = team_name + ' oxygen'
             channel.basic_publish(exchange='Expedition',
                                 routing_key='order.oxygen',
+                                properties=pika.BasicProperties(expiration='60000',),
                                 body=msg)
         elif order == 'boots':
             msg = team_name + ' boots'
             channel.basic_publish(exchange='Expedition',
                                 routing_key='order.boots',
+                                properties=pika.BasicProperties(expiration='60000',),
                                 body=msg)
         elif order == 'pack':
             msg = team_name + ' pack'
             channel.basic_publish(exchange='Expedition',
                                 routing_key='order.pack',
+                                properties=pika.BasicProperties(expiration='60000',),
                                 body=msg)
         else:
             print("Wrong input")

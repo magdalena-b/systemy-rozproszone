@@ -65,14 +65,17 @@ def send_messages():
         if msg_type == 'teams':
             channel.basic_publish(exchange='Expedition',
                                   routing_key='teams.*',
+                                  properties=pika.BasicProperties(expiration='60000',), # 60 seconds
                                   body=admin_msg)
         elif msg_type == 'suppliers':
             channel.basic_publish(exchange='Expedition',
                                   routing_key='suppliers.*',
+                                  properties=pika.BasicProperties(expiration='60000',),
                                   body=admin_msg)
         elif msg_type == 'everyone':
             channel.basic_publish(exchange='Expedition',
                                   routing_key='all.*',
+                                  properties=pika.BasicProperties(expiration='60000',),
                                   body=admin_msg)
 
 
@@ -83,6 +86,10 @@ def listen_to_messages():
     channel.queue_bind(exchange='Expedition',
                        queue='admin',
                        routing_key='order.*')
+
+    channel.queue_bind(exchange='Expedition',
+                    queue='admin',
+                    routing_key='teams.*')
 
     channel.basic_consume(queue='admin',
                           on_message_callback=callback,
