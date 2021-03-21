@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import pika
+import time
 
 # Consumer - odbiera zlecenia
 # Dostawca posiada liste dostepnych produktow
@@ -9,9 +10,11 @@ import pika
 # numer zlecenia nadany przez Suppliera
 
 
-def execute_order():
+def execute_order(ch, method, properties, body):
+
+    print("Received order: " + body.decode())
     print("Working hard")
-    sleep(1)
+    time.sleep(1)
     # basicPublish("elo zrobione")
 
 
