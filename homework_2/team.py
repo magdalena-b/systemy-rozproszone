@@ -20,25 +20,24 @@ def initialize_connection_and_exchange():
     return connection, channel
 
 
-def admin_stuff():
+def admin_stuff(team_name):
     connection, channel = initialize_connection_and_exchange()
-    channel.queue_declare('lol', durable=True)
+    channel.queue_declare(team_name, durable=True)
     channel.queue_bind(exchange='Expedition',
-                       queue='lol',
+                       queue=team_name,
                        routing_key='teams.*')
 
-    channel.basic_consume(queue='lol',
+    channel.basic_consume(queue=team_name,
                           on_message_callback=callback,
                           auto_ack=True)
     channel.start_consuming()
 
 
 
-def order_stuff():
+def order_stuff(team_name):
     connection, channel = initialize_connection_and_exchange()
     try:
-        print("Team's name: ")
-        team_name = input()
+
 
         channel.queue_declare(team_name, durable=True)
         channel.queue_bind(exchange='Expedition',
@@ -80,8 +79,12 @@ def order_stuff():
 
 
 def do_team_stuff():
-    order_thread = threading.Thread(target = order_stuff)
-    admin_thread = threading.Thread(target = admin_stuff)
+    
+    print("Team's name: ")
+    team_name = input()
+    
+    order_thread = threading.Thread(target = order_stuff, args=(team_name,))
+    admin_thread = threading.Thread(target = admin_stuff, args=(team_name,))
 
     order_thread.start()
     admin_thread.start()

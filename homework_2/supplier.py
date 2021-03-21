@@ -32,12 +32,24 @@ def initialize_connection_and_exchange():
     return connection, channel
 
 
-def do_supplier_stuff():
+
+def admin_stuff(supplier_name):
+    connection, channel = initialize_connection_and_exchange()
+    channel.queue_declare(supplier_name, durable=True)
+    channel.queue_bind(exchange='Expedition',
+                       queue=supplier_name,
+                       routing_key='suppliers.*')
+
+    channel.basic_consume(queue=supplier_name,
+                          on_message_callback=callback,
+                          auto_ack=True)
+    channel.start_consuming()
+
+
+def order_stuff(supplier_name):
     connection, channel = initialize_connection_and_exchange()
 
     try:
-        print("Supplier's name: ")
-        supplier_name = input()
         print("Available products (oxygen, boots, pack): ")
         products_input = input()
         products = list(products_input.split(" "))
@@ -69,6 +81,15 @@ def do_supplier_stuff():
     except:
         print('Byee')
         channel.close()        
+
+
+def do_supplier_stuff():
+    
+    print("Supplier's name: ")
+    supplier_name = input()
+
+    order_thread = threading.Thread(target = order_stuff, args=(supplier_name,))
+    admin_thread = threading.Thread(target = admin_stuff, args=(supplier_name,))
 
 
 if __name__ == '__main__':
