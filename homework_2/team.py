@@ -24,7 +24,7 @@ def place_an_order(team_name):
                                   routing_key='order.oxygen',
                                   body=msg)
         elif order == 'boots':
-            msg = team_name + ' pack'
+            msg = team_name + ' boots'
             channel.basic_publish(exchange='Expedition',
                                   routing_key='order.boots',
                                   body=msg)
