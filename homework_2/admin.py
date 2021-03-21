@@ -17,7 +17,7 @@ message_type = ['teams', 'suppliers', 'everyone']
 
 
 def callback(channel, method, properties, body):
-    print("[x] Received " + str(body.decode()))
+    print("Shop: " + str(body.decode()))
 
 
 def take_input():
@@ -57,7 +57,6 @@ def send_messages():
     while True:
         msg_type_option = take_input()
         msg_type = translate_input(msg_type_option)
-        # print(msg_type)
         print('Your message to ' + msg_type + ': ')
         admin_msg_input = input()
         admin_msg = "Admin " + admin_msg_input
@@ -80,16 +79,12 @@ def send_messages():
 
 
 def listen_to_messages():
-    # admin nasluchuje skladania i potwierdzania zamowien
     connection, channel = initialize_connection_and_exchange()
     channel.queue_declare('admin', durable=True)
     channel.queue_bind(exchange='Expedition',
                        queue='admin',
                        routing_key='order.*')
 
-    channel.queue_bind(exchange='Expedition',
-                    queue='admin',
-                    routing_key='teams.*')
 
     channel.basic_consume(queue='admin',
                           on_message_callback=callback,

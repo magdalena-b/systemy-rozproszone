@@ -21,19 +21,23 @@ def execute_order(channel, method, properties, body):
     
     global order_id
 
-    order_id += 1
-    print("Received order: " + body.decode())
-    print("Working hard on order " + str(order_id))
-    time.sleep(1)
+    msg = body.decode()
 
-    client_team, ordered_item = body.decode().split(' ')
-    
-    channel.basic_publish(exchange='Expedition',
-                    routing_key = 'teams.' + client_team,
-                    properties=pika.BasicProperties(expiration='60000',),
-                    body = 'Here is your order: ' + ordered_item)
-    
-    print("Done with order " + str(order_id))
+    if msg.find('Admin') == -1:
+        order_id += 1
+        print("Received order: " + body.decode())
+        print("Working hard on order " + str(order_id))
+        time.sleep(1)
+
+        
+        client_team, ordered_item = body.decode().split(' ')
+        
+        channel.basic_publish(exchange='Expedition',
+                        routing_key = 'order.' + client_team,
+                        properties=pika.BasicProperties(expiration='60000',),
+                        body = 'Here is your order: ' + ordered_item)
+        
+        print("Done with order " + str(order_id))
 
 
 
