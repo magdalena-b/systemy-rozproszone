@@ -7,9 +7,13 @@ from kazoo.client import KazooClient
 from kazoo.protocol.states import WatchedEvent, EventType
 
 
+# def kids_handler()
+
+
 zk = KazooClient(hosts = '127.0.0.1:2181')
 zk.start(timeout = 60)
 app = None
+# zk.get_children("/z", watch = kids_handler)
 
 # # children = zk.get_children("/z")
 # @zk.ChildrenWatch("/z")
@@ -48,9 +52,16 @@ def handle_node(data, stat, event: WatchedEvent):
             if app != None:
                 os.kill(app.pid, signal.SIGKILL)
 
+        if event.type == EventType.CHILD:
+            print("kidzz")
 
-    if zk.exists("z"):
-        print("Exists")
+if zk.exists("/z"):
+    kids = zk.get_children("/z")
+    if kids != []:
+        @zk.ChildrenWatch("z")
+        def watch_children(children):
+            print(children)
+
             
 while True:
     time.sleep(5)
