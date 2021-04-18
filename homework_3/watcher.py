@@ -6,59 +6,42 @@ import signal
 from kazoo.client import KazooClient
 from kazoo.protocol.states import WatchedEvent, EventType
 
-
-# def kids_handler()
-
-
 zk = KazooClient(hosts = '127.0.0.1:2181')
 zk.start(timeout = 60)
 app = None
-nodes_counter = 0
-# zk.get_children("/z", watch = kids_handler)
 
-# # children = zk.get_children("/z")
-# @zk.ChildrenWatch("/z")
-# def watch_children(children):
-#     # for child in children:
-#     #     grandkids = zk.get_children("/z/" + child)
-#     #     print(grandkids)
-#     print(len(children))
-#     # print(children)
-
-# @zk.DataWatch(path)
-# def handler(data, stat, event: WatchedEvent):
-#     if event:
-#         if event.type == EventType.CREATED:
-#             print("grandkid")
+def print_and_count_children(path):
+    print(path)
+    children = zk.get_children(path)
+    count = 1
+    for child in children:
+        count += print_and_count_children(path + "/" + child)
+    return count
 
 
+def handle_event_in_kids(event):
+    print("Event: " + str(event.type))
+    # have to reset handler after very trigger
+    set_handler_in_children(event.path)
+    if zk.exists("/z"):
+        count = print_and_count_children("/z")
+        print("Children count = ", count-1)
 
-# def handle_child_node(path):
-#     print(path)
-#     zk.get_children(path, watch = handler)
 
-
-def watch_children_2(path: str):
-    print("in watch children 2: " + path)
-    # children = zk.get_children(path)
-    @zk.ChildrenWatch
-    def children_watcher(path):
-        children = zk.get_children(path)
-        print("Loooool")
-        global nodes_counter
+def set_handler_in_children(path):
+    if zk.exists(path):
+        # watches updates in children set (also if children == [])
+        children = zk.get_children(path, watch = handle_event_in_kids)
         for child in children:
-            nodes_counter += 1
-            child_path = path + "/" + child
-            print(child_path)
-            watch_children(child_path)
-            
-
+            set_handler_in_children(path + "/" + child)
 
 @zk.DataWatch("/z")
-def handle_node(data, stat, event: WatchedEvent):
+def handle_exist(data, stat, event: WatchedEvent):
     global app
     if event:
         if event.type == EventType.CREATED:
+            print_and_count_children("/z")
+            zk.get_children("/z", watch = handle_event_in_kids)
             print("To launch Discord press 1\nTo launch LOCALHOST game press 2\
                 \nTo specify app to launch press 3: \nDismiss press 4")
             option = input()
@@ -75,39 +58,16 @@ def handle_node(data, stat, event: WatchedEvent):
             else:
                 pass
 
-
         if event.type == EventType.DELETED:
             print("z deleted")
             if app != None:
                 os.kill(app.pid, signal.SIGKILL)
 
-        if event.type == EventType.CHILD:
-            print("kidzz")
 
     if zk.exists("/z"):
-        print("exists")
-        # if zk.get_children("/z") != []:
-            # print(zk.get_children("z"))
-            # watch_children_2("/z")
-        kids = zk.get_children("/z")
-        if kids != []:
-            path = "/z"
-            @zk.ChildrenWatch("/z")
-            def watch_children(path: str):
-                print(path)
-                children = zk.get_children("z/" + path)
-                print(children)
-                print(len(children))
-                for child in children:
-                    path = path + "/" + child
-                    watch_children(path)
+        count = print_and_count_children("/z")
+        print("Children count = ", count - 1)
+        set_handler_in_children("/z")
 
-
-
-
-
-
-            
 while True:
     time.sleep(5)
-        
