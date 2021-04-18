@@ -13,6 +13,7 @@ from kazoo.protocol.states import WatchedEvent, EventType
 zk = KazooClient(hosts = '127.0.0.1:2181')
 zk.start(timeout = 60)
 app = None
+nodes_counter = 0
 # zk.get_children("/z", watch = kids_handler)
 
 # # children = zk.get_children("/z")
@@ -23,6 +24,34 @@ app = None
 #     #     print(grandkids)
 #     print(len(children))
 #     # print(children)
+
+# @zk.DataWatch(path)
+# def handler(data, stat, event: WatchedEvent):
+#     if event:
+#         if event.type == EventType.CREATED:
+#             print("grandkid")
+
+
+
+# def handle_child_node(path):
+#     print(path)
+#     zk.get_children(path, watch = handler)
+
+
+def watch_children_2(path: str):
+    print("in watch children 2: " + path)
+    # children = zk.get_children(path)
+    @zk.ChildrenWatch
+    def children_watcher(path):
+        children = zk.get_children(path)
+        print("Loooool")
+        global nodes_counter
+        for child in children:
+            nodes_counter += 1
+            child_path = path + "/" + child
+            print(child_path)
+            watch_children(child_path)
+            
 
 
 @zk.DataWatch("/z")
@@ -55,12 +84,28 @@ def handle_node(data, stat, event: WatchedEvent):
         if event.type == EventType.CHILD:
             print("kidzz")
 
-if zk.exists("/z"):
-    kids = zk.get_children("/z")
-    if kids != []:
-        @zk.ChildrenWatch("z")
-        def watch_children(children):
-            print(children)
+    if zk.exists("/z"):
+        print("exists")
+        # if zk.get_children("/z") != []:
+            # print(zk.get_children("z"))
+            # watch_children_2("/z")
+        kids = zk.get_children("/z")
+        if kids != []:
+            path = "/z"
+            @zk.ChildrenWatch("/z")
+            def watch_children(path: str):
+                print(path)
+                children = zk.get_children("z/" + path)
+                print(children)
+                print(len(children))
+                for child in children:
+                    path = path + "/" + child
+                    watch_children(path)
+
+
+
+
+
 
             
 while True:
