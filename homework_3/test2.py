@@ -10,36 +10,38 @@ zk = KazooClient(hosts = '127.0.0.1:2181')
 zk.start(timeout = 60)
 app = None
 
-
-def handle_update(event):
-    register_watch(event.path)
-    if zk.exists("/z"):
-        count = print_children("/z")
-        print("Children count = ", count-1)
-
-def print_children(path):
+def print_and_count_children(path):
     print(path)
     children = zk.get_children(path)
     count = 1
     for child in children:
-        count += print_children(path + "/" + child)
+        count += print_and_count_children(path + "/" + child)
     return count
 
-def register_watch(path):
+
+def handle_event_in_kids(event):
+    print("Event: " + str(event.type))
+    # have to reset handler after very trigger
+    set_handler_in_children(event.path)
+    if zk.exists("/z"):
+        count = print_and_count_children("/z")
+        print("Children count = ", count-1)
+
+
+def set_handler_in_children(path):
     if zk.exists(path):
-        update_handler = lambda event: handle_update(event)
-        children = zk.get_children(path, watch = update_handler)
+        # watches updates in children set (also if children == [])
+        children = zk.get_children(path, watch = handle_event_in_kids)
         for child in children:
-            register_watch(path + "/" + child)
+            set_handler_in_children(path + "/" + child)
 
 @zk.DataWatch("/z")
 def handle_exist(data, stat, event: WatchedEvent):
-    update_handler = lambda event: handle_update(event)
     global app
     if event:
         if event.type == EventType.CREATED:
-            print_children("/z")
-            zk.get_children("/z", watch = update_handler)
+            print_and_count_children("/z")
+            zk.get_children("/z", watch = handle_event_in_kids)
             print("To launch Discord press 1\nTo launch LOCALHOST game press 2\
                 \nTo specify app to launch press 3: \nDismiss press 4")
             option = input()
@@ -63,9 +65,9 @@ def handle_exist(data, stat, event: WatchedEvent):
 
 
     if zk.exists("/z"):
-        count = print_children("/z")
+        count = print_and_count_children("/z")
         print("Children count = ", count - 1)
-        register_watch("/z")
+        set_handler_in_children("/z")
 
 while True:
     time.sleep(5)
