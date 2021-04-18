@@ -1,5 +1,7 @@
 import time
 import subprocess
+import os
+import signal
 
 from kazoo.client import KazooClient
 from kazoo.protocol.states import WatchedEvent, EventType
@@ -30,14 +32,14 @@ def register_watch(path):
         for child in children:
             register_watch(path + "/" + child)
 
-@zk.DataWatch("/zk")
+@zk.DataWatch("/z")
 def handle_exist(data, stat, event: WatchedEvent):
     update_handler = lambda event: handle_update(event)
+    global app
     if event:
-        print(event)
         if event.type == EventType.CREATED:
-            print_children("/zk")
-            zk.get_children("/zk", watch = update_handler)
+            print_children("/z")
+            zk.get_children("/z", watch = update_handler)
             print("To launch Discord press 1\nTo launch LOCALHOST game press 2\
                 \nTo specify app to launch press 3: \nDismiss press 4")
             option = input()
