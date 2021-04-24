@@ -1,8 +1,11 @@
-from thespian.actors import ActorSystem, ActorTypeDispatcher, ActorExitRequest
+from thespian.actors import *
 from satelliteAPI import SatelliteAPI
 
 
-class Satellite():
+
+
+
+class Satellite(Actor):
 
     id: int
     satAPI: SatelliteAPI
@@ -12,6 +15,6 @@ class Satellite():
         self.satAPI = SatelliteAPI()
 
 
-    def receiveMsg(self, message, sender):
+    def receiveMsg_Request(self, message, sender):
         pass
         

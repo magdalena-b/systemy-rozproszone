@@ -1,7 +1,10 @@
-from thespian.actors import ActorSystem, ActorTypeDispatcher, ActorExitRequest
+from thespian.actors import *
 
 
-class Station():
+class Request():
+    pass
+
+class Station(Actor):
     
     name: str
 

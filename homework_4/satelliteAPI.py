@@ -1,6 +1,7 @@
+from thespian.actors import *
 import time, enum, random
 
-class SatelliteAPI:
+class SatelliteAPI(Actor):
 
     class Status(enum.Enum):
         OK = 1
