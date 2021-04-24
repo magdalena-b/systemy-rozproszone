@@ -10,5 +10,5 @@ class Satellite(Actor):
     id: int
     
     def receiveMessage(self, message, sender):
-        print(message)
+        print("Satellite says hi back")
         

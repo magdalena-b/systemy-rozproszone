@@ -19,15 +19,11 @@ if __name__ == "__main__":
     satellites = {}
 
     for i in range(100, 200):
-        # print(i)
         sat = ActorSystem().createActor(Satellite)
         satellites[i] = sat
-        # print(satellites[i])
 
-    # print(satellites[110] )
+    msg = Request(satellites, 0, 100, 10, 0.5, satAPI, dispatcher)
+    # ActorSystem().tell(dispatcher, msg)
+    # Station.send(dispatcher, msg)
 
-
-    msg = Request(satellites, 0, 100, 10, 0.5, satAPI)
-
-    # ActorSystem().ask(station1, msg, 0.1)
-    ActorSystem().tell(dispatcher, msg)
+    ActorSystem().tell(station1, msg)

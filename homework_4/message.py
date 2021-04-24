@@ -10,13 +10,14 @@ class Request():
     timeout: int
     satelliteAPI: SatelliteAPI
    
-    def __init__(self, satellites, query_id, first_sat_id, sat_range, timeout, satAPI):
+    def __init__(self, satellites, query_id, first_sat_id, sat_range, timeout, satAPI, dispatcher):
         self.satellites = satellites
         self.query_id = query_id
         self.first_sat_id = first_sat_id
         self.sat_range = sat_range
         self.timeout = timeout
         self.satelliteAPI = satAPI
+        self.dispatcher = dispatcher
 
 
 class Report():

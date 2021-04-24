@@ -21,6 +21,7 @@ class Dispatcher(ActorTypeDispatcher):
             ActorSystem().ask(message.satellites[i], 'Hi', 0.5)
 
 
+
     # send msg to satellite
     def receiveMsg_Report(self, message, sender):
         print("Received report")

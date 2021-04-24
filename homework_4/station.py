@@ -1,13 +1,20 @@
 from thespian.actors import *
-
-
-class Request():
-    pass
+from message import *
 
 class Station(Actor):
     
     name: str
+    query_id: int
+
+    def __init__(self):
+        print("Inited Station")
+        self.query_id = 0
+
 
     def receiveMessage(self, message, sender):
-        print(message)
+        if isinstance(message, Request):
+            print("station got request")
+            self.send(message.dispatcher, message)
+
+
 
