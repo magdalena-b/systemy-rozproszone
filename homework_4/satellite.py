@@ -9,6 +9,7 @@ class Satellite(Actor):
 
     id: int
     
-    def receiveMessage(self, message, sender):
+    def receiveMessage(self, satAPI, sender):
         print("Satellite says hi back")
-        
+        status = satAPI.get_status(id)
+        print(status)

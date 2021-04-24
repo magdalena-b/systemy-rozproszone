@@ -20,6 +20,7 @@ if __name__ == "__main__":
 
     for i in range(100, 200):
         sat = ActorSystem().createActor(Satellite)
+        sat.id = i
         satellites[i] = sat
 
     msg = Request(satellites, 0, 100, 10, 0.5, satAPI, dispatcher)

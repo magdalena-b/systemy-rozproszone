@@ -18,7 +18,7 @@ class Dispatcher(ActorTypeDispatcher):
         satAPI = message.satelliteAPI
 
         for i in range(first_id, first_id + sat_range):
-            ActorSystem().ask(message.satellites[i], 'Hi', 0.5)
+            ActorSystem().ask(message.satellites[i], message.satelliteAPI, 0.5)
 
 
 
