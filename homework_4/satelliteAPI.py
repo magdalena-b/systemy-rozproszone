@@ -24,6 +24,3 @@ class SatelliteAPI:
         else:
             return self.Status.PROPULSION_ERROR
 
-
-api = SatelliteAPI()
-print(api.get_status(0))
