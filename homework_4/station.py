@@ -8,5 +8,6 @@ class Station(Actor):
     
     name: str
 
-    def __init__(self, name):
-        self.name = name
+    def receiveMessage(self, message, sender):
+        print(message)
+
