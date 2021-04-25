@@ -8,11 +8,25 @@ from message import Request, Report
 
 class Satellite(Actor):
 
-    id: int
+    # id: int
     
-    def receiveMessage(self, satAPI, sender):
-        print("Satellite says hi back to " + str(sender))
-        status = satAPI.get_status(id)
-        print(status)
+    def receiveMessage(self, message, sender):
+        print("Satellites say hi back to " + str(sender))
+
+        errors = {}
+
+        for i in range(message.first_sat_id, message.first_sat_id + message.sat_range):
+            try:
+                status = message.satelliteAPI.get_status(i)
+                if status != message.satelliteAPI.Status.OK:
+                    errors[i] = status
+            except ActorSystemRequestTimeout:
+                print("Error")
+
+        # status = satAPI.get_status(id)
+        # print(status)
+        
         report = Report()
+        report.error_map = errors
+        report.station = message.station
         self.send(sender, report)

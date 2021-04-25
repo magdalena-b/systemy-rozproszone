@@ -8,14 +8,9 @@ class Dispatcher(ActorTypeDispatcher):
 
     def receiveMsg_Request(self, message, sender):
         print("Received request with id " + str(message.query_id)) 
-
-        for i in range(message.first_sat_id, message.first_sat_id + message.sat_range):
-            try:
-                # ActorSystem().ask(message.satellites[i], message.satelliteAPI, 0.001)
-                self.send(message.satellites[i], message.satelliteAPI)
-            except ActorSystemRequestTimeout:
-                print("Error")
+        self.send(message.satellite, message)
 
 
     def receiveMsg_Report(self, message, sender):
-        print("Received report")
+        print("Dispatcher received report")
+        self.send(message.station, message)

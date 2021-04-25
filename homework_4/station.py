@@ -15,6 +15,10 @@ class Station(Actor):
         if isinstance(message, Request):
             print("station got request")
             self.send(message.dispatcher, message)
+        
+        if isinstance(message, Report):
+            print("station got report :))))))))))))))))))))))))))")
+            print(message.error_map)
 
 
 

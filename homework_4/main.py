@@ -11,20 +11,24 @@ from message import Request, Report
 
 
 if __name__ == "__main__":
-    station1 = ActorSystem().createActor(Station)
-    station1.name = "Lol"
-    dispatcher = ActorSystem().createActor(Dispatcher)
+    # system = ActorSystem("multiprocTCPBase")
+    system = ActorSystem()
+    station1 = system.createActor(Station)
+    station1.name = "Pirx"
+    dispatcher = system.createActor(Dispatcher)
 
     satAPI = SatelliteAPI()
-    satellites = {}
+    # satellites = {}
 
-    for i in range(100, 200):
-        sat = ActorSystem().createActor(Satellite)
-        sat.id = i
-        satellites[i] = sat
+    # for i in range(100, 200):
+    #     sat = system.createActor(Satellite)
+    #     sat.id = i
+    #     satellites[i] = sat
 
-    msg = Request(satellites, 0, 100, 10, 0.01, satAPI, dispatcher)
+    satellite = system.createActor(Satellite)
+
+    msg = Request(satellite, 0, 100, 30, 0.01, satAPI, dispatcher, station1)
     # ActorSystem().tell(dispatcher, msg)
     # Station.send(dispatcher, msg)
 
-    ActorSystem().tell(station1, msg)
+    system.tell(station1, msg)
