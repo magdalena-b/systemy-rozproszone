@@ -19,7 +19,7 @@ if __name__ == "__main__":
         first_sat_id = 100
         sat_range = 100
         timeout = 0.3
-        msg = Request(satellite, first_sat_id, sat_range, timeout, satAPI, dispatcher, station_info)
+        msg = Request(first_sat_id, sat_range, timeout, satAPI, dispatcher, station_info)
         system.tell(station_info.station, msg)
 
 

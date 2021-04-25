@@ -3,8 +3,7 @@ from satelliteAPI import SatelliteAPI
 
 class Request():
        
-    def __init__(self, satellite, first_sat_id, sat_range, timeout, satAPI, dispatcher, station_info):
-        self.satellite = satellite
+    def __init__(self, first_sat_id, sat_range, timeout, satAPI, dispatcher, station_info):
         self.first_sat_id = first_sat_id
         self.sat_range = sat_range
         self.timeout = timeout

@@ -25,4 +25,5 @@ class Station(Actor):
             print("Query = " + str(message.station_info.query_counter))
             print("Percent = " + str(message.percent))
             print(message.error_map)
+            print("\n\n")
             
