@@ -23,6 +23,7 @@ class Station(Actor):
         if isinstance(message, Report):
             print(message.station_info.name + " got a report:")
             print("Query = " + str(message.station_info.query_counter))
+            print("Execution time = " + str(message.execution_time))
             print("Percent = " + str(message.percent))
             print(message.error_map)
             print("\n\n")
