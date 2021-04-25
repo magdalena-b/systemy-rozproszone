@@ -12,6 +12,7 @@ class Request():
         self.station_info = station_info
 
 
+
 class Report():
 
     def __init__(self):
@@ -19,5 +20,8 @@ class Report():
         self.error_map = {}
         self.percent = 0
         self.station_info = None
+        self.start_time = None
+        self.end_time = None
+        self.execution_time = None
 
     
