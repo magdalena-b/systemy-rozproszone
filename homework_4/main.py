@@ -28,6 +28,8 @@ if __name__ == "__main__":
     satAPI = SatelliteAPI()
     satellite = system.createActor(Satellite)
 
+    # Pirx 
+
     station1 = system.createActor(Station)
     station1_info = Station_Info(station1, "Pirx", 0)
 
@@ -35,5 +37,22 @@ if __name__ == "__main__":
     time.sleep(0.5)
     send_request(station1_info)
 
+    # Glob
+
+    station2 = system.createActor(Station)
+    station2_info = Station_Info(station2, "Glob", 0)
+    
+    send_request(station2_info)
+    time.sleep(0.2)
+    send_request(station2_info)
+
+    # Ripley
+
+    station3 = system.createActor(Station)
+    station3_info = Station_Info(station2, "Ripley", 0)
+
+    send_request(station3_info)
+    time.sleep(0.2)
+    send_request(station3_info)
 
     

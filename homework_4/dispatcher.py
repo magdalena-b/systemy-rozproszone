@@ -3,9 +3,6 @@ from message import Request, Report
 
 class Dispatcher(ActorTypeDispatcher):
 
-    def __init__(self):
-        pass
-
     def receiveMsg_Request(self, message, sender):
         self.send(message.satellite, message)
 
