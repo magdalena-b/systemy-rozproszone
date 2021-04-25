@@ -24,6 +24,19 @@ class Station(Actor):
             print(message.error_map)
             print("\n\n")
 
+        if isinstance(message, int):
+            sat_id = str(message)
+            f = open("db.txt", "r")
+            lines = f.readlines()
+            f.close()
+            
+            for line in lines:
+                if sat_id in line:
+                    error_counter = line.split()[1]
+                    if int(error_counter) > 0:
+                        print("_______________ERROR COUNTER FOR " + sat_id + " IS " + error_counter) 
+
+
 
 
             
