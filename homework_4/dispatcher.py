@@ -48,20 +48,7 @@ class Dispatcher(ActorTypeDispatcher):
                     f.write(line)
                 for mod_line in modified_lines:
                     f.write(mod_line)
-                            
 
-
-
-
-            # for key in message.error_map:
-            #     with open("db.txt", "r") as lines:
-            #         for line in lines:
-            #             if str(key) in line:
-            #                 print("found ittt")
-                
-            #     f.write(str(key) + "\n")
-
-            # f.flush()
             global_lock.release()
 
         thread = threading.Thread(target = update_db)
