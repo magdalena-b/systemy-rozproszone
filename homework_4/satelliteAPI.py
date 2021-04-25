@@ -16,6 +16,9 @@ class SatelliteAPI(Actor):
         except:
             print("Error occured in get_status")
         
+        # while True:
+        #     time.sleep(1)
+
         if p < 0.8:
             return self.Status.OK
         elif p < 0.9:

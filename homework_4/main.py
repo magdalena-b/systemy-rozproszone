@@ -23,7 +23,7 @@ if __name__ == "__main__":
         sat.id = i
         satellites[i] = sat
 
-    msg = Request(satellites, 0, 100, 10, 0.5, satAPI, dispatcher)
+    msg = Request(satellites, 0, 100, 10, 0.01, satAPI, dispatcher)
     # ActorSystem().tell(dispatcher, msg)
     # Station.send(dispatcher, msg)
 

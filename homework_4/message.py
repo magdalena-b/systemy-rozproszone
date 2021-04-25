@@ -22,13 +22,13 @@ class Request():
 
 class Report():
 
-    request: Request
+    query_id: int
     error_map: dict
     percent: int
 
-    def __init__(self, request):
-        self.request = request
-        error_map = {}
-        percent = 0
+    def __init__(self):
+        self.query_id = -1
+        self.error_map = {}
+        self.percent = 0
 
     
