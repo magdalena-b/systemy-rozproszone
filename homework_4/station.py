@@ -25,6 +25,7 @@ class Station(Actor):
             self.send(message.dispatcher, message)
         
         if isinstance(message, Report):
-            print(message.station_name + " got a report:")
+            print(message.station_info.name + " got a report:")
+            print("Query = " + str(message.station_info.query_counter))
             print(message.error_map)
             

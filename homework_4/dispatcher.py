@@ -13,4 +13,4 @@ class Dispatcher(ActorTypeDispatcher):
 
     def receiveMsg_Report(self, message, sender):
         print("Dispatcher received report")
-        self.send(message.station, message)
+        self.send(message.station_info.station, message)

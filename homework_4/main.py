@@ -11,7 +11,7 @@ from message import Request, Report
 
 
 if __name__ == "__main__":
-    # system = ActorSystem("multiprocTCPBase")
+    system = ActorSystem("multiprocQueueBase")
     system = ActorSystem()
     station1 = system.createActor(Station)
     station1_info = Station_Info(station1, "Pirx", 0)
@@ -20,6 +20,6 @@ if __name__ == "__main__":
     satAPI = SatelliteAPI()
     satellite = system.createActor(Satellite)
 
-    msg = Request(satellite, station1_info.query_counter, 100, 30, 0.01, satAPI, dispatcher, station1, "Pirx")
+    msg = Request(satellite, station1_info.query_counter, 100, 100, 0.3, satAPI, dispatcher, station1_info)
     system.tell(station1, msg)
     
