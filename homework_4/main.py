@@ -10,8 +10,42 @@ import time
 import concurrent.futures
 import random
 
+import sqlite3
+
+
+def db_init():
+
+
+    conn = sqlite3.connect('test.db')
+
+    try: 
+        conn.execute(
+            '''CREATE TABLE ERRORS
+                (ID INT PRIMARY KEY     NOT NULL,
+                ERROR_COUNTER            INT     NOT NULL);'''
+        )
+    except:
+        pass
+
+    try:
+        for i in range(100, 200):
+
+            sql = '''INSERT INTO ERRORS(ID, ERROR_COUNTER) 
+                    VALUES(?, ?) '''
+            sat = [i, 0]
+            conn.execute(sql, sat)
+            conn.commit()
+    except:
+        pass
+
+    return conn
+
+
 
 if __name__ == "__main__":
+
+    conn = db_init()
+
     system = ActorSystem("multiprocQueueBase")
     system = ActorSystem()
 
