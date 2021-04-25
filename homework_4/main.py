@@ -44,4 +44,18 @@ if __name__ == "__main__":
     satellite = system.createActor(Satellite)
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.submit(init_station("Pirx"), init_station("Glob"), init_station("Ripley"))
+        tasks = [
+            executor.submit(init_station("Pirx"), init_station("Glob"), init_station("Ripley"))
+        ]
+
+    done, not_done = concurrent.futures.wait(tasks, return_when = concurrent.futures.ALL_COMPLETED, timeout = None)
+
+    time.sleep(2)
+
+    station = system.createActor(Station)
+    station_info = Station_Info(station, "Jake", 0)
+
+    for i in range(100, 200):
+        system.tell(station_info.station, i)
+    
+
