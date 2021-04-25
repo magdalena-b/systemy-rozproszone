@@ -34,7 +34,7 @@ class Station(Actor):
                 if sat_id in line:
                     error_counter = line.split()[1]
                     if int(error_counter) > 0:
-                        print("_______________ERROR COUNTER FOR " + sat_id + " IS " + error_counter) 
+                        print("ERROR COUNTER FOR " + sat_id + " IS " + error_counter) 
 
 
 
