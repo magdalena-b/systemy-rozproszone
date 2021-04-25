@@ -10,7 +10,6 @@ import concurrent.futures
 class Satellite(Actor):
     
     def receiveMessage(self, message, sender):
-        print("Satellites say hi back to " + str(sender))
 
         errors = {}
 
@@ -27,20 +26,9 @@ class Satellite(Actor):
                 sat_id, status = task.result()
                 if status != message.satelliteAPI.Status.OK:
                     errors[sat_id] = status
-
-            print("Done: " + str(len(done)))
-            print("Not done: " + str(len(not_done)))
-
-
-
         
         report = Report()
-
         report.percent = len(done) / (len(done) + len(not_done)  ) * 100
-        print("Percent: ")
-        print(report.percent)
-
         report.error_map = errors
-        # message.station_info.query_counter += 1
         report.station_info = message.station_info
         self.send(sender, report)

@@ -13,17 +13,16 @@ class Station_Info():
 class Station(Actor):
     
     def __init__(self):
-        print("Inited Station")
         self.report = Report()
 
 
     def receiveMessage(self, message, sender):
         if isinstance(message, Request):
-            print("station got request")
             self.send(message.dispatcher, message)
         
         if isinstance(message, Report):
             print(message.station_info.name + " got a report:")
             print("Query = " + str(message.station_info.query_counter))
+            print("Percent = " + str(message.percent))
             print(message.error_map)
             
