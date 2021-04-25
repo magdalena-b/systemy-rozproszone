@@ -11,20 +11,20 @@ class SatelliteAPI(Actor):
 
     def get_status(self, sat_id):
         p = random.uniform(0, 1)
-        try:
-            time.sleep( (100 + random.randint(0, 400)) / 1000 )
-        except:
-            print("Error occured in get_status")
+        # try:
+        #     time.sleep( (100 + random.randint(0, 400)) / 1000 )
+        # except:
+        #     print("Error occured in get_status")
         
         # while True:
         #     time.sleep(1)
 
         if p < 0.8:
-            return self.Status.OK
+            return sat_id, self.Status.OK
         elif p < 0.9:
-            return self.Status.BATTERY_LOW
+            return sat_id, self.Status.BATTERY_LOW
         elif p < 0.95:
-            return self.Status.NAVIGATION_ERROR
+            return sat_id, self.Status.NAVIGATION_ERROR
         else:
-            return self.Status.PROPULSION_ERROR
+            return sat_id, self.Status.PROPULSION_ERROR
 

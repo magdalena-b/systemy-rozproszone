@@ -20,6 +20,6 @@ if __name__ == "__main__":
     satAPI = SatelliteAPI()
     satellite = system.createActor(Satellite)
 
-    msg = Request(satellite, station1_info.query_counter, 100, 10, 0.01, satAPI, dispatcher, station1, "Pirx")
+    msg = Request(satellite, station1_info.query_counter, 100, 30, 0.01, satAPI, dispatcher, station1, "Pirx")
     system.tell(station1, msg)
     
