@@ -12,10 +12,6 @@ class Station_Info():
 
 class Station(Actor):
     
-    def __init__(self):
-        self.report = Report()
-
-
     def receiveMessage(self, message, sender):
         if isinstance(message, Request):
             self.send(message.dispatcher, message)

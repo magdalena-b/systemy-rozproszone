@@ -32,7 +32,6 @@ if __name__ == "__main__":
         send_request(station_info)
 
 
-
     dispatcher = system.createActor(Dispatcher)
     satAPI = SatelliteAPI()
     satellite = system.createActor(Satellite)
