@@ -3,19 +3,17 @@ from message import *
 
 
 class Station_Info():
-    
+
     def __init__(self, station, name, query_counter):
         self.station = station
         self.name = name
         self.query_counter = query_counter
 
+
 class Station(Actor):
     
-    query_id: int
-
     def __init__(self):
         print("Inited Station")
-        self.query_id = 0
         self.report = Report()
 
 

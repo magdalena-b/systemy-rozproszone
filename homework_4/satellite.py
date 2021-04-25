@@ -41,6 +41,6 @@ class Satellite(Actor):
         print(report.percent)
 
         report.error_map = errors
-        message.station_info.query_counter += 1
+        # message.station_info.query_counter += 1
         report.station_info = message.station_info
         self.send(sender, report)

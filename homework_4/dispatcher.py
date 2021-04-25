@@ -7,7 +7,7 @@ class Dispatcher(ActorTypeDispatcher):
         pass
 
     def receiveMsg_Request(self, message, sender):
-        print("Received request with id " + str(message.query_id)) 
+        print("Received request with id " + str(message.station_info.query_counter)) 
         self.send(message.satellite, message)
 
 
