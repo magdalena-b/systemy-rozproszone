@@ -10,11 +10,17 @@ import time
 import concurrent.futures
 import random
 
+def init_db():
+    f = open("db.txt", "w")
+    for i in range(100, 200):
+        f.write(str(i) + " " + str(0) + "\n")
+
 
 if __name__ == "__main__":
 
     system = ActorSystem("multiprocQueueBase")
     system = ActorSystem()
+    init_db()
 
     def send_request(station_info):
         station_info.query_counter += 1

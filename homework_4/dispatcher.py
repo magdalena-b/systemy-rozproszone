@@ -24,11 +24,44 @@ class Dispatcher(ActorTypeDispatcher):
                 continue
 
             global_lock.acquire()
-            f = open("db.txt", "a")
-            for key in message.error_map:
-                f.write(str(key) + "\n")
+            f = open("db.txt", "r")
+            lines = f.readlines()
+            f.close()
 
-            f.flush()
+            lines_to_delete = []
+            modified_lines = []
+
+            for line in lines:
+                sat_id, counter = line.split()
+                for key in message.error_map:
+                    if sat_id == str(key):
+                        lines_to_delete.append(line)
+                        counter_int = int(counter)
+                        counter_int += 1
+                        modified_line = str(key) + " " + str(counter_int) + "\n"
+                        modified_lines.append(modified_line)
+
+            with open("db.txt", "w") as f:
+                for line in lines:
+                    if line in lines_to_delete:
+                        continue
+                    f.write(line)
+                for mod_line in modified_lines:
+                    f.write(mod_line)
+                            
+
+
+
+
+            # for key in message.error_map:
+            #     with open("db.txt", "r") as lines:
+            #         for line in lines:
+            #             if str(key) in line:
+            #                 print("found ittt")
+                
+            #     f.write(str(key) + "\n")
+
+            # f.flush()
             global_lock.release()
 
         thread = threading.Thread(target = update_db)
