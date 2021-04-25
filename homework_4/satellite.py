@@ -33,4 +33,5 @@ class Satellite(Actor):
         report.percent = len(done) / (len(done) + len(not_done)  ) * 100
         report.error_map = errors
         report.station_info = message.station_info
+
         self.send(sender, report)
