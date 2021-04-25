@@ -8,6 +8,7 @@ from message import Request, Report
 
 import time
 import concurrent.futures
+import random
 
 
 if __name__ == "__main__":
@@ -16,8 +17,8 @@ if __name__ == "__main__":
 
     def send_request(station_info):
         station_info.query_counter += 1
-        first_sat_id = 100
-        sat_range = 100
+        first_sat_id = 100 + random.randint(0, 50)
+        sat_range = 50
         timeout = 0.3
         msg = Request(first_sat_id, sat_range, timeout, satAPI, dispatcher, station_info)
         system.tell(station_info.station, msg)
@@ -27,7 +28,7 @@ if __name__ == "__main__":
         station_info = Station_Info(station, name, 0)
 
         send_request(station_info)
-        time.sleep(0.1)
+        time.sleep(0.001)
         send_request(station_info)
 
 
