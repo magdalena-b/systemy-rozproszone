@@ -1,14 +1,22 @@
 from thespian.actors import *
 from message import *
 
+
+class Station_Info():
+    
+    def __init__(self, station, name, query_counter):
+        self.station = station
+        self.name = name
+        self.query_counter = query_counter
+
 class Station(Actor):
     
-    name: str
     query_id: int
 
     def __init__(self):
         print("Inited Station")
         self.query_id = 0
+        self.report = Report()
 
 
     def receiveMessage(self, message, sender):
@@ -17,8 +25,6 @@ class Station(Actor):
             self.send(message.dispatcher, message)
         
         if isinstance(message, Report):
-            print("station got report :))))))))))))))))))))))))))")
+            print(message.station_name + " got a report:")
             print(message.error_map)
-
-
-
+            

@@ -29,4 +29,5 @@ class Satellite(Actor):
         report = Report()
         report.error_map = errors
         report.station = message.station
+        report.station_name = message.station_name
         self.send(sender, report)
