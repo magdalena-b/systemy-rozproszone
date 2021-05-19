@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework import generics, status, views
 from rest_framework.decorators import api_view
 from django.core.serializers import serialize, json
+import json
+import requests
 
 class SearchSongView(generics.CreateAPIView):
     
@@ -15,12 +17,18 @@ class SearchSongView(generics.CreateAPIView):
     def post(self, request: Request, *args, **kwargs):
         serializer = SongSerializer(data = request.data)
         if serializer.is_valid():
-            song = serializer.create(serializer.validated_data)
-            print("songggggggggg")
-            return Response(status = status.HTTP_200_OK)
+            song = serializer.get_or_create(serializer.validated_data)
+
+            title = song.title.replace(' ', '%20')
+            song_url = 'https://some-random-api.ml/lyrics?title=' + title
+            data = json.loads(requests.get(song_url).content)
+            song.lyrics = data['lyrics']
 
         else:
-            return Response(status = status.HTTP_400_BAD_REQUEST)
+            song = None
+        
+        return render(request, "show_song.html", {'song': song})
+
 
 
 

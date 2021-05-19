@@ -12,9 +12,9 @@ class SongSerializer(serializers.ModelSerializer):
         model = Song
         fields = ('title', 'author')
 
-    def create(self, validated_data):
+    def get_or_create(self, validated_data):
         try:
-            song = Song.objects.create(
+            song, created = Song.objects.get_or_create(
                 title = validated_data['title'],
                 author = validated_data['author']
             )
