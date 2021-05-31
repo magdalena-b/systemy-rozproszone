@@ -38,7 +38,7 @@ public class HelloWorldServer {
         .addService(new GreeterImpl())
         .build()
         .start();
-    logger.info("Server started, listening on " + port);
+    logger.info("The coolest server started, listening on " + port);
     Runtime.getRuntime().addShutdownHook(new Thread() {
       @Override
       public void run() {
@@ -86,5 +86,15 @@ public class HelloWorldServer {
       responseObserver.onNext(reply);
       responseObserver.onCompleted();
     }
+
+    @Override
+    public void sayHelloAgain(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
+      HelloReply reply = HelloReply.newBuilder().setMessage("Hello again " + req.getName()).build();
+      responseObserver.onNext(reply);
+      responseObserver.onCompleted();
+    }
+
+
+
   }
 }
