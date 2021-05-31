@@ -4,10 +4,6 @@
 package io.grpc.examples.helloworld;
 
 /**
- * <pre>
- * The response message containing the greetings
- * </pre>
- *
  * Protobuf type {@code helloworld.HelloReply}
  */
 public final class HelloReply extends
@@ -284,10 +280,6 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * <pre>
-   * The response message containing the greetings
-   * </pre>
-   *
    * Protobuf type {@code helloworld.HelloReply}
    */
   public static final class Builder extends

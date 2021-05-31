@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.grpc.examples.helloworld.HelloWorldServerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-31T15:31:47" hostname="probook" time="0.008">
-  <properties/>
-  <testcase name="greeterImpl_replyMessage" classname="io.grpc.examples.helloworld.HelloWorldServerTest" time="0.008"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

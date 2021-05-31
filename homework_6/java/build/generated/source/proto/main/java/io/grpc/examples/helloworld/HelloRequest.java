@@ -4,10 +4,6 @@
 package io.grpc.examples.helloworld;
 
 /**
- * <pre>
- * The request message containing the user's name.
- * </pre>
- *
  * Protobuf type {@code helloworld.HelloRequest}
  */
 public final class HelloRequest extends
@@ -284,10 +280,6 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * <pre>
-   * The request message containing the user's name.
-   * </pre>
-   *
    * Protobuf type {@code helloworld.HelloRequest}
    */
   public static final class Builder extends
