@@ -44,6 +44,10 @@ public class SubProvider extends SubProviderImplBase {
                                             .setNotification("heyy")
                                             .build();
 
+            for (User user : users.values()) {
+                user.getStreamObserver().onNext(response);
+            }
+
             try {
                 TimeUnit.SECONDS.sleep(1);
             }
