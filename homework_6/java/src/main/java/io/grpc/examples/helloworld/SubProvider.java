@@ -5,17 +5,20 @@ import io.grpc.stub.StreamObserver;
 import io.grpc.examples.helloworld.SubProviderGrpc.SubProviderImplBase;
 import io.grpc.examples.helloworld.HelloWorldProto.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 
 public class SubProvider extends SubProviderImplBase {
 
     private int counter;
     private final ConcurrentHashMap<String, User> users;
+    
 
     public SubProvider() {
         
         this.counter = 0;
         this.users = new ConcurrentHashMap<String, User>();
+        this.generateNotifications();
     }
 
     public boolean addSubscriber(Subscription request) {
@@ -32,6 +35,22 @@ public class SubProvider extends SubProviderImplBase {
 
         System.out.println("\n[SUBSCRIBED] New subscription: " + request);
         return true;
+    }
+
+    private void generateNotifications() {
+        
+        while (true) {
+            NotificationResponse response = NotificationResponse.newBuilder()
+                                            .setNotification("heyy")
+                                            .build();
+
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 
 
