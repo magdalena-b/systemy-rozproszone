@@ -33,6 +33,7 @@ public class TeaMachine extends TeaMachineController implements ITeaMachine {
         if (temperature > maxTemperature || temperature < minValue) throw new ImproperTemperatureValue();
         if (sugarLevel > maxSugarLevel || sugarLevel < minValue) throw new ImproperSugarLevelValue();
         Drink drink = new Drink(temperature);
+        System.out.println("mm teA");
         try {
             return new Tea(drink, TeaType.valueOf(teaType), sugarLevel);
         } catch (IllegalArgumentException e) {
