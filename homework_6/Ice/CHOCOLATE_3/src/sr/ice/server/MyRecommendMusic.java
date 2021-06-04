@@ -1,4 +1,4 @@
-package sr.ice.model.machines;
+package sr.ice.server;
 
 import Hello.IRecommendMusic;
 import com.zeroc.Ice.Current;

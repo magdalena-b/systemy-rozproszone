@@ -1,12 +1,8 @@
 package sr.ice.server;
 
-import Hello.IChocolateMachine;
 import Hello.IRecommendMusic;
-import Hello.IRoomController;
-import Hello.ITeaMachine;
 import com.zeroc.Ice.Object;
 import com.zeroc.Ice.*;
-import sr.ice.model.machines.MyRecommendMusic;
 
 import java.util.HashMap;
 
