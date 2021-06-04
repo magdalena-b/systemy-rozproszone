@@ -26,6 +26,8 @@ public class ChocolateMachine extends ChocolateMachineController implements ICho
     public Chocolate makeChocolate(String chocolateType, short temperature, Current current) throws ImproperTemperatureValue,
             UnknownDevicePowerState, UnknownChocolateType {
 
+        System.out.println("mm");
+
         if (temperature > maxTemperature || temperature < minValue) throw new ImproperTemperatureValue();
         Drink drink = new Drink(temperature);
         setDevicePowerState(DevicePowerState.ON, current);

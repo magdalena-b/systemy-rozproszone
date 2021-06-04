@@ -22,6 +22,7 @@ public class CustomServantLocator implements ServantLocator {
             case "chocolateMachine":
                 IChocolateMachine chocolateServant = new ChocolateMachine("chocolateMachine");
                 adapter.add(chocolateServant, new Identity(name, "machines"));
+                System.out.println("Init chocolate machine");
                 return new ServantLocator.LocateResult(chocolateServant, null);
             case "teaMachine":
                 ITeaMachine teaServant = new TeaMachine("teaMachine");

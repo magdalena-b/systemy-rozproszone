@@ -12,3 +12,8 @@ if __name__ == '__main__':
             print("error")
         else:
             print("all good")
+
+        while True:
+            line = input()
+            if line == "hello":
+                chocolate_proxy.makeChocolate("MILK", 100)
