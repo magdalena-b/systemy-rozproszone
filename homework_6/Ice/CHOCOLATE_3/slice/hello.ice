@@ -105,6 +105,10 @@ module Hello {
         Room setParameter(string roomId, string parameterType, short parameterValue) throws UnknownDevicePowerState,
         UnknownRoomId, UnknownRoomParameterType, ImproperRoomParameterValue;
     };
+
+    interface IRecommendMusic {
+        string recommendMusic();
+    };
 };
 
 #endif

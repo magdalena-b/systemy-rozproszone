@@ -15,19 +15,14 @@
 
 package Hello;
 
-public interface IRoomController extends IDevice
+public interface IRecommendMusic extends com.zeroc.Ice.Object
 {
-    Room setParameter(String roomId, String parameterType, short parameterValue, com.zeroc.Ice.Current current)
-        throws ImproperRoomParameterValue,
-               UnknownDevicePowerState,
-               UnknownRoomId,
-               UnknownRoomParameterType;
+    String recommendMusic(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
     {
-        "::Hello::IDevice",
-        "::Hello::IRoomController",
+        "::Hello::IRecommendMusic",
         "::Ice::Object"
     };
 
@@ -45,7 +40,7 @@ public interface IRoomController extends IDevice
 
     static String ice_staticId()
     {
-        return "::Hello::IRoomController";
+        return "::Hello::IRecommendMusic";
     }
 
     /**
@@ -54,23 +49,14 @@ public interface IRoomController extends IDevice
      * @param inS -
      * @param current -
      * @return -
-     * @throws com.zeroc.Ice.UserException -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setParameter(IRoomController obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-        throws com.zeroc.Ice.UserException
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_recommendMusic(IRecommendMusic obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        String iceP_roomId;
-        String iceP_parameterType;
-        short iceP_parameterValue;
-        iceP_roomId = istr.readString();
-        iceP_parameterType = istr.readString();
-        iceP_parameterValue = istr.readShort();
-        inS.endReadParams();
-        Room ret = obj.setParameter(iceP_roomId, iceP_parameterType, iceP_parameterValue, current);
+        inS.readEmptyParams();
+        String ret = obj.recommendMusic(current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        Room.ice_write(ostr, ret);
+        ostr.writeString(ret);
         inS.endWriteParams(ostr);
         return inS.setResult(ostr);
     }
@@ -78,14 +64,11 @@ public interface IRoomController extends IDevice
     /** @hidden */
     final static String[] _iceOps =
     {
-        "getAvailableCommands",
-        "getCurrentDeviceParameters",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "setDevicePowerState",
-        "setParameter"
+        "recommendMusic"
     };
 
     /** @hidden */
@@ -103,35 +86,23 @@ public interface IRoomController extends IDevice
         {
             case 0:
             {
-                return IDevice._iceD_getAvailableCommands(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 1:
             {
-                return IDevice._iceD_getCurrentDeviceParameters(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
-            }
-            case 5:
-            {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
-            }
-            case 6:
-            {
-                return IDevice._iceD_setDevicePowerState(this, in, current);
-            }
-            case 7:
-            {
-                return _iceD_setParameter(this, in, current);
+                return _iceD_recommendMusic(this, in, current);
             }
         }
 

@@ -15,101 +15,54 @@
 
 package Hello;
 
-public interface IRoomControllerPrx extends IDevicePrx
+public interface IRecommendMusicPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default Room setParameter(String roomId, String parameterType, short parameterValue)
-        throws ImproperRoomParameterValue,
-               UnknownDevicePowerState,
-               UnknownRoomId,
-               UnknownRoomParameterType
+    default String recommendMusic()
     {
-        return setParameter(roomId, parameterType, parameterValue, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return recommendMusic(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default Room setParameter(String roomId, String parameterType, short parameterValue, java.util.Map<String, String> context)
-        throws ImproperRoomParameterValue,
-               UnknownDevicePowerState,
-               UnknownRoomId,
-               UnknownRoomParameterType
+    default String recommendMusic(java.util.Map<String, String> context)
     {
-        try
-        {
-            return _iceI_setParameterAsync(roomId, parameterType, parameterValue, context, true).waitForResponseOrUserEx();
-        }
-        catch(ImproperRoomParameterValue ex)
-        {
-            throw ex;
-        }
-        catch(UnknownDevicePowerState ex)
-        {
-            throw ex;
-        }
-        catch(UnknownRoomId ex)
-        {
-            throw ex;
-        }
-        catch(UnknownRoomParameterType ex)
-        {
-            throw ex;
-        }
-        catch(com.zeroc.Ice.UserException ex)
-        {
-            throw new com.zeroc.Ice.UnknownUserException(ex.ice_id(), ex);
-        }
+        return _iceI_recommendMusicAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Room> setParameterAsync(String roomId, String parameterType, short parameterValue)
+    default java.util.concurrent.CompletableFuture<java.lang.String> recommendMusicAsync()
     {
-        return _iceI_setParameterAsync(roomId, parameterType, parameterValue, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_recommendMusicAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Room> setParameterAsync(String roomId, String parameterType, short parameterValue, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> recommendMusicAsync(java.util.Map<String, String> context)
     {
-        return _iceI_setParameterAsync(roomId, parameterType, parameterValue, context, false);
+        return _iceI_recommendMusicAsync(context, false);
     }
 
     /**
      * @hidden
-     * @param iceP_roomId -
-     * @param iceP_parameterType -
-     * @param iceP_parameterValue -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Room> _iceI_setParameterAsync(String iceP_roomId, String iceP_parameterType, short iceP_parameterValue, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_recommendMusicAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Room> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setParameter", null, sync, _iceE_setParameter);
-        f.invoke(true, context, null, ostr -> {
-                     ostr.writeString(iceP_roomId);
-                     ostr.writeString(iceP_parameterType);
-                     ostr.writeShort(iceP_parameterValue);
-                 }, istr -> {
-                     Room ret;
-                     ret = Room.ice_read(istr);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "recommendMusic", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     String ret;
+                     ret = istr.readString();
                      return ret;
                  });
         return f;
     }
 
-    /** @hidden */
-    static final Class<?>[] _iceE_setParameter =
-    {
-        ImproperRoomParameterValue.class,
-        UnknownDevicePowerState.class,
-        UnknownRoomId.class,
-        UnknownRoomParameterType.class
-    };
-
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.
      * @param obj The untyped proxy.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static IRoomControllerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
+    static IRecommendMusicPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), IRoomControllerPrx.class, _IRoomControllerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), IRecommendMusicPrx.class, _IRecommendMusicPrxI.class);
     }
 
     /**
@@ -119,9 +72,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static IRoomControllerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
+    static IRecommendMusicPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), IRoomControllerPrx.class, _IRoomControllerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), IRecommendMusicPrx.class, _IRecommendMusicPrxI.class);
     }
 
     /**
@@ -131,9 +84,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static IRoomControllerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static IRecommendMusicPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), IRoomControllerPrx.class, _IRoomControllerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), IRecommendMusicPrx.class, _IRecommendMusicPrxI.class);
     }
 
     /**
@@ -144,9 +97,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static IRoomControllerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
+    static IRecommendMusicPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), IRoomControllerPrx.class, _IRoomControllerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), IRecommendMusicPrx.class, _IRecommendMusicPrxI.class);
     }
 
     /**
@@ -154,9 +107,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @param obj The untyped proxy.
      * @return A proxy for this type.
      **/
-    static IRoomControllerPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
+    static IRecommendMusicPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, IRoomControllerPrx.class, _IRoomControllerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, IRecommendMusicPrx.class, _IRecommendMusicPrxI.class);
     }
 
     /**
@@ -165,9 +118,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type.
      **/
-    static IRoomControllerPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static IRecommendMusicPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, IRoomControllerPrx.class, _IRoomControllerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, IRecommendMusicPrx.class, _IRecommendMusicPrxI.class);
     }
 
     /**
@@ -176,9 +129,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified per-proxy context.
      **/
     @Override
-    default IRoomControllerPrx ice_context(java.util.Map<String, String> newContext)
+    default IRecommendMusicPrx ice_context(java.util.Map<String, String> newContext)
     {
-        return (IRoomControllerPrx)_ice_context(newContext);
+        return (IRecommendMusicPrx)_ice_context(newContext);
     }
 
     /**
@@ -187,9 +140,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified adapter ID.
      **/
     @Override
-    default IRoomControllerPrx ice_adapterId(String newAdapterId)
+    default IRecommendMusicPrx ice_adapterId(String newAdapterId)
     {
-        return (IRoomControllerPrx)_ice_adapterId(newAdapterId);
+        return (IRecommendMusicPrx)_ice_adapterId(newAdapterId);
     }
 
     /**
@@ -198,9 +151,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified endpoints.
      **/
     @Override
-    default IRoomControllerPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
+    default IRecommendMusicPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
     {
-        return (IRoomControllerPrx)_ice_endpoints(newEndpoints);
+        return (IRecommendMusicPrx)_ice_endpoints(newEndpoints);
     }
 
     /**
@@ -209,9 +162,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified locator cache timeout.
      **/
     @Override
-    default IRoomControllerPrx ice_locatorCacheTimeout(int newTimeout)
+    default IRecommendMusicPrx ice_locatorCacheTimeout(int newTimeout)
     {
-        return (IRoomControllerPrx)_ice_locatorCacheTimeout(newTimeout);
+        return (IRecommendMusicPrx)_ice_locatorCacheTimeout(newTimeout);
     }
 
     /**
@@ -220,9 +173,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified invocation timeout.
      **/
     @Override
-    default IRoomControllerPrx ice_invocationTimeout(int newTimeout)
+    default IRecommendMusicPrx ice_invocationTimeout(int newTimeout)
     {
-        return (IRoomControllerPrx)_ice_invocationTimeout(newTimeout);
+        return (IRecommendMusicPrx)_ice_invocationTimeout(newTimeout);
     }
 
     /**
@@ -231,9 +184,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified caching policy.
      **/
     @Override
-    default IRoomControllerPrx ice_connectionCached(boolean newCache)
+    default IRecommendMusicPrx ice_connectionCached(boolean newCache)
     {
-        return (IRoomControllerPrx)_ice_connectionCached(newCache);
+        return (IRecommendMusicPrx)_ice_connectionCached(newCache);
     }
 
     /**
@@ -242,9 +195,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified endpoint selection policy.
      **/
     @Override
-    default IRoomControllerPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
+    default IRecommendMusicPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
     {
-        return (IRoomControllerPrx)_ice_endpointSelection(newType);
+        return (IRecommendMusicPrx)_ice_endpointSelection(newType);
     }
 
     /**
@@ -255,9 +208,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default IRoomControllerPrx ice_secure(boolean b)
+    default IRecommendMusicPrx ice_secure(boolean b)
     {
-        return (IRoomControllerPrx)_ice_secure(b);
+        return (IRecommendMusicPrx)_ice_secure(b);
     }
 
     /**
@@ -266,9 +219,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified encoding version.
      **/
     @Override
-    default IRoomControllerPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
+    default IRecommendMusicPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
     {
-        return (IRoomControllerPrx)_ice_encodingVersion(e);
+        return (IRecommendMusicPrx)_ice_encodingVersion(e);
     }
 
     /**
@@ -279,9 +232,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default IRoomControllerPrx ice_preferSecure(boolean b)
+    default IRecommendMusicPrx ice_preferSecure(boolean b)
     {
-        return (IRoomControllerPrx)_ice_preferSecure(b);
+        return (IRecommendMusicPrx)_ice_preferSecure(b);
     }
 
     /**
@@ -290,9 +243,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified router.
      **/
     @Override
-    default IRoomControllerPrx ice_router(com.zeroc.Ice.RouterPrx router)
+    default IRecommendMusicPrx ice_router(com.zeroc.Ice.RouterPrx router)
     {
-        return (IRoomControllerPrx)_ice_router(router);
+        return (IRecommendMusicPrx)_ice_router(router);
     }
 
     /**
@@ -301,9 +254,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified locator.
      **/
     @Override
-    default IRoomControllerPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
+    default IRecommendMusicPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
     {
-        return (IRoomControllerPrx)_ice_locator(locator);
+        return (IRecommendMusicPrx)_ice_locator(locator);
     }
 
     /**
@@ -312,9 +265,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified collocation optimization.
      **/
     @Override
-    default IRoomControllerPrx ice_collocationOptimized(boolean b)
+    default IRecommendMusicPrx ice_collocationOptimized(boolean b)
     {
-        return (IRoomControllerPrx)_ice_collocationOptimized(b);
+        return (IRecommendMusicPrx)_ice_collocationOptimized(b);
     }
 
     /**
@@ -322,9 +275,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy that uses twoway invocations.
      **/
     @Override
-    default IRoomControllerPrx ice_twoway()
+    default IRecommendMusicPrx ice_twoway()
     {
-        return (IRoomControllerPrx)_ice_twoway();
+        return (IRecommendMusicPrx)_ice_twoway();
     }
 
     /**
@@ -332,9 +285,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy that uses oneway invocations.
      **/
     @Override
-    default IRoomControllerPrx ice_oneway()
+    default IRecommendMusicPrx ice_oneway()
     {
-        return (IRoomControllerPrx)_ice_oneway();
+        return (IRecommendMusicPrx)_ice_oneway();
     }
 
     /**
@@ -342,9 +295,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy that uses batch oneway invocations.
      **/
     @Override
-    default IRoomControllerPrx ice_batchOneway()
+    default IRecommendMusicPrx ice_batchOneway()
     {
-        return (IRoomControllerPrx)_ice_batchOneway();
+        return (IRecommendMusicPrx)_ice_batchOneway();
     }
 
     /**
@@ -352,9 +305,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy that uses datagram invocations.
      **/
     @Override
-    default IRoomControllerPrx ice_datagram()
+    default IRecommendMusicPrx ice_datagram()
     {
-        return (IRoomControllerPrx)_ice_datagram();
+        return (IRecommendMusicPrx)_ice_datagram();
     }
 
     /**
@@ -362,9 +315,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy that uses batch datagram invocations.
      **/
     @Override
-    default IRoomControllerPrx ice_batchDatagram()
+    default IRecommendMusicPrx ice_batchDatagram()
     {
-        return (IRoomControllerPrx)_ice_batchDatagram();
+        return (IRecommendMusicPrx)_ice_batchDatagram();
     }
 
     /**
@@ -373,9 +326,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified compression setting.
      **/
     @Override
-    default IRoomControllerPrx ice_compress(boolean co)
+    default IRecommendMusicPrx ice_compress(boolean co)
     {
-        return (IRoomControllerPrx)_ice_compress(co);
+        return (IRecommendMusicPrx)_ice_compress(co);
     }
 
     /**
@@ -384,9 +337,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified timeout.
      **/
     @Override
-    default IRoomControllerPrx ice_timeout(int t)
+    default IRecommendMusicPrx ice_timeout(int t)
     {
-        return (IRoomControllerPrx)_ice_timeout(t);
+        return (IRecommendMusicPrx)_ice_timeout(t);
     }
 
     /**
@@ -395,9 +348,9 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A proxy with the specified connection ID.
      **/
     @Override
-    default IRoomControllerPrx ice_connectionId(String connectionId)
+    default IRecommendMusicPrx ice_connectionId(String connectionId)
     {
-        return (IRoomControllerPrx)_ice_connectionId(connectionId);
+        return (IRecommendMusicPrx)_ice_connectionId(connectionId);
     }
 
     /**
@@ -406,13 +359,13 @@ public interface IRoomControllerPrx extends IDevicePrx
      * @return A fixed proxy bound to the given connection.
      **/
     @Override
-    default IRoomControllerPrx ice_fixed(com.zeroc.Ice.Connection connection)
+    default IRecommendMusicPrx ice_fixed(com.zeroc.Ice.Connection connection)
     {
-        return (IRoomControllerPrx)_ice_fixed(connection);
+        return (IRecommendMusicPrx)_ice_fixed(connection);
     }
 
     static String ice_staticId()
     {
-        return "::Hello::IRoomController";
+        return "::Hello::IRecommendMusic";
     }
 }
