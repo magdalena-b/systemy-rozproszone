@@ -12,10 +12,9 @@ if __name__ == '__main__':
             print("error")
         else:
             print("all good")
-        #
-        # while True:
-        #     line = input()
-        #     if line == "hello":
-        #         # base = communicator.stringToProxy('machines/chocolateMachine' + ":tcp -h localhost -p 10000")
-        #         # chocolate_proxy = Hello.IChocolateMachinePrx.checkedCast(base)
-        #         music_proxy.recommendMusic("New Order");
+
+        while True:
+            line = input()
+            if line == "music":
+                print(music_proxy.recommendMusic())
+
