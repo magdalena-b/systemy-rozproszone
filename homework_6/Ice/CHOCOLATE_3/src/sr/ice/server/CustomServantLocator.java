@@ -25,35 +25,14 @@ public class CustomServantLocator implements ServantLocator {
 
 
         switch (name) {
-//            case "chocolateMachine":
-//                IChocolateMachine chocolateServant;
-//                if (servants.containsKey("chocolateMachine")){
-//                    chocolateServant = (IChocolateMachine) servants.get("chocolateMachine");
-//                    System.out.println("Got the old machine");
-//                }
-//                else {
-//                    chocolateServant = new ChocolateMachine("chocolateMachine");
-//                    adapter.add(chocolateServant, new Identity(name, "machines"));
-//                    System.out.println("Init chocolate machine");
-//                }
-//                return new ServantLocator.LocateResult(chocolateServant, null);
-//
-//            case "teaMachine":
-//                ITeaMachine teaServant = new TeaMachine("teaMachine");
-//                adapter.add(teaServant, new Identity(name, "machines"));
-//                return new ServantLocator.LocateResult(teaServant, null);
-//            case "roomControllerMachine":
-//                IRoomController roomServant = new RoomControllerMachine("roomControllerMachine");
-//                adapter.add(roomServant, new Identity(name, "machines"));
-//                return new ServantLocator.LocateResult(roomServant, null);
+
             case "recommendMusic":
                 IRecommendMusic musicServant = new MyRecommendMusic();
                 adapter.add(musicServant, new Identity(name, ""));
                 return new ServantLocator.LocateResult(musicServant, null);
 
         }
-        throw new RuntimeException();
-//        throw new IllegalStateException();
+        throw new IllegalStateException();
     }
 
     @Override
