@@ -91,18 +91,18 @@ public interface IGetAPIPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
-    default String getLyrics(String title)
+    default String getLyrics(String title, String artist)
         throws SongNotFoundError
     {
-        return getLyrics(title, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return getLyrics(title, artist, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default String getLyrics(String title, java.util.Map<String, String> context)
+    default String getLyrics(String title, String artist, java.util.Map<String, String> context)
         throws SongNotFoundError
     {
         try
         {
-            return _iceI_getLyricsAsync(title, context, true).waitForResponseOrUserEx();
+            return _iceI_getLyricsAsync(title, artist, context, true).waitForResponseOrUserEx();
         }
         catch(SongNotFoundError ex)
         {
@@ -114,28 +114,30 @@ public interface IGetAPIPrx extends com.zeroc.Ice.ObjectPrx
         }
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.String> getLyricsAsync(String title)
+    default java.util.concurrent.CompletableFuture<java.lang.String> getLyricsAsync(String title, String artist)
     {
-        return _iceI_getLyricsAsync(title, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_getLyricsAsync(title, artist, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.String> getLyricsAsync(String title, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> getLyricsAsync(String title, String artist, java.util.Map<String, String> context)
     {
-        return _iceI_getLyricsAsync(title, context, false);
+        return _iceI_getLyricsAsync(title, artist, context, false);
     }
 
     /**
      * @hidden
      * @param iceP_title -
+     * @param iceP_artist -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getLyricsAsync(String iceP_title, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getLyricsAsync(String iceP_title, String iceP_artist, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getLyrics", null, sync, _iceE_getLyrics);
         f.invoke(true, context, null, ostr -> {
                      ostr.writeString(iceP_title);
+                     ostr.writeString(iceP_artist);
                  }, istr -> {
                      String ret;
                      ret = istr.readString();

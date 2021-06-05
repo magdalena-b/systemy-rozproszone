@@ -18,7 +18,7 @@ module Hello {
     interface IGetAPI {
         string getPandaFact();
         string getKoalaFact();
-        string getLyrics(string title) throws SongNotFoundError;
+        string getLyrics(string title, string artist) throws SongNotFoundError;
     };
 
     interface IGetRandomNumer {

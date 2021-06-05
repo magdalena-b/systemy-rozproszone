@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import org.json.*;
+
 
 public class RecommendMusic implements IRecommendMusic {
 
@@ -31,11 +31,6 @@ public class RecommendMusic implements IRecommendMusic {
         int randomInt = random.nextInt(this.bands.size());
         return bands.get(randomInt);
 
-//        URL url = new URL("https://some-random-api.ml/facts/panda");
-//        JSONTokener tokener = new JSONTokener(url.openStream());
-//        JSONObject obj = new JSONObject(tokener);
-//        String fact = obj.getString("fact");
-//        return fact;
     }
 
 

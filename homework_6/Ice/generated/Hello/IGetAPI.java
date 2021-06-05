@@ -15,14 +15,16 @@
 
 package Hello;
 
+import java.io.IOException;
+
 public interface IGetAPI extends com.zeroc.Ice.Object
 {
-    String getPandaFact(com.zeroc.Ice.Current current);
+    String getPandaFact(com.zeroc.Ice.Current current) throws IOException;
 
-    String getKoalaFact(com.zeroc.Ice.Current current);
+    String getKoalaFact(com.zeroc.Ice.Current current) throws IOException;
 
-    String getLyrics(String title, com.zeroc.Ice.Current current)
-        throws SongNotFoundError;
+    String getLyrics(String title, String artist, com.zeroc.Ice.Current current)
+            throws SongNotFoundError, IOException;
 
     /** @hidden */
     static final String[] _iceIds =
@@ -55,8 +57,7 @@ public interface IGetAPI extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getPandaFact(IGetAPI obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getPandaFact(IGetAPI obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current) throws IOException {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
         String ret = obj.getPandaFact(current);
@@ -73,8 +74,7 @@ public interface IGetAPI extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getKoalaFact(IGetAPI obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getKoalaFact(IGetAPI obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current) throws IOException {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
         String ret = obj.getKoalaFact(current);
@@ -93,14 +93,15 @@ public interface IGetAPI extends com.zeroc.Ice.Object
      * @throws com.zeroc.Ice.UserException -
     **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getLyrics(IGetAPI obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-        throws com.zeroc.Ice.UserException
-    {
+            throws com.zeroc.Ice.UserException, IOException {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
         String iceP_title;
+        String iceP_artist;
         iceP_title = istr.readString();
+        iceP_artist = istr.readString();
         inS.endReadParams();
-        String ret = obj.getLyrics(iceP_title, current);
+        String ret = obj.getLyrics(iceP_title, iceP_artist, current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
         ostr.writeString(ret);
         inS.endWriteParams(ostr);
@@ -134,15 +135,27 @@ public interface IGetAPI extends com.zeroc.Ice.Object
         {
             case 0:
             {
-                return _iceD_getKoalaFact(this, in, current);
+                try {
+                    return _iceD_getKoalaFact(this, in, current);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             case 1:
             {
-                return _iceD_getLyrics(this, in, current);
+                try {
+                    return _iceD_getLyrics(this, in, current);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             case 2:
             {
-                return _iceD_getPandaFact(this, in, current);
+                try {
+                    return _iceD_getPandaFact(this, in, current);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             case 3:
             {
