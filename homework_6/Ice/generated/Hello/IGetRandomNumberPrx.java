@@ -15,38 +15,56 @@
 
 package Hello;
 
-public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
+public interface IGetRandomNumberPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default int getRandomInt()
+    default int getRandomInt(String min, String max)
+        throws WrongNumberError
     {
-        return getRandomInt(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return getRandomInt(min, max, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default int getRandomInt(java.util.Map<String, String> context)
+    default int getRandomInt(String min, String max, java.util.Map<String, String> context)
+        throws WrongNumberError
     {
-        return _iceI_getRandomIntAsync(context, true).waitForResponse();
+        try
+        {
+            return _iceI_getRandomIntAsync(min, max, context, true).waitForResponseOrUserEx();
+        }
+        catch(WrongNumberError ex)
+        {
+            throw ex;
+        }
+        catch(com.zeroc.Ice.UserException ex)
+        {
+            throw new com.zeroc.Ice.UnknownUserException(ex.ice_id(), ex);
+        }
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getRandomIntAsync()
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getRandomIntAsync(String min, String max)
     {
-        return _iceI_getRandomIntAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_getRandomIntAsync(min, max, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getRandomIntAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getRandomIntAsync(String min, String max, java.util.Map<String, String> context)
     {
-        return _iceI_getRandomIntAsync(context, false);
+        return _iceI_getRandomIntAsync(min, max, context, false);
     }
 
     /**
      * @hidden
+     * @param iceP_min -
+     * @param iceP_max -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getRandomIntAsync(java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getRandomIntAsync(String iceP_min, String iceP_max, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getRandomInt", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getRandomInt", null, sync, _iceE_getRandomInt);
+        f.invoke(true, context, null, ostr -> {
+                     ostr.writeString(iceP_min);
+                     ostr.writeString(iceP_max);
+                 }, istr -> {
                      int ret;
                      ret = istr.readInt();
                      return ret;
@@ -54,36 +72,60 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
-    default double getRandomDouble()
+    /** @hidden */
+    static final Class<?>[] _iceE_getRandomInt =
     {
-        return getRandomDouble(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        WrongNumberError.class
+    };
+
+    default double getRandomDouble(String min, String max)
+        throws WrongNumberError
+    {
+        return getRandomDouble(min, max, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default double getRandomDouble(java.util.Map<String, String> context)
+    default double getRandomDouble(String min, String max, java.util.Map<String, String> context)
+        throws WrongNumberError
     {
-        return _iceI_getRandomDoubleAsync(context, true).waitForResponse();
+        try
+        {
+            return _iceI_getRandomDoubleAsync(min, max, context, true).waitForResponseOrUserEx();
+        }
+        catch(WrongNumberError ex)
+        {
+            throw ex;
+        }
+        catch(com.zeroc.Ice.UserException ex)
+        {
+            throw new com.zeroc.Ice.UnknownUserException(ex.ice_id(), ex);
+        }
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Double> getRandomDoubleAsync()
+    default java.util.concurrent.CompletableFuture<java.lang.Double> getRandomDoubleAsync(String min, String max)
     {
-        return _iceI_getRandomDoubleAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_getRandomDoubleAsync(min, max, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Double> getRandomDoubleAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.Double> getRandomDoubleAsync(String min, String max, java.util.Map<String, String> context)
     {
-        return _iceI_getRandomDoubleAsync(context, false);
+        return _iceI_getRandomDoubleAsync(min, max, context, false);
     }
 
     /**
      * @hidden
+     * @param iceP_min -
+     * @param iceP_max -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Double> _iceI_getRandomDoubleAsync(java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Double> _iceI_getRandomDoubleAsync(String iceP_min, String iceP_max, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Double> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getRandomDouble", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Double> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getRandomDouble", null, sync, _iceE_getRandomDouble);
+        f.invoke(true, context, null, ostr -> {
+                     ostr.writeString(iceP_min);
+                     ostr.writeString(iceP_max);
+                 }, istr -> {
                      double ret;
                      ret = istr.readDouble();
                      return ret;
@@ -91,15 +133,21 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    /** @hidden */
+    static final Class<?>[] _iceE_getRandomDouble =
+    {
+        WrongNumberError.class
+    };
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.
      * @param obj The untyped proxy.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static IGetRandomNumerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
+    static IGetRandomNumberPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), IGetRandomNumerPrx.class, _IGetRandomNumerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), IGetRandomNumberPrx.class, _IGetRandomNumberPrxI.class);
     }
 
     /**
@@ -109,9 +157,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static IGetRandomNumerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
+    static IGetRandomNumberPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), IGetRandomNumerPrx.class, _IGetRandomNumerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), IGetRandomNumberPrx.class, _IGetRandomNumberPrxI.class);
     }
 
     /**
@@ -121,9 +169,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static IGetRandomNumerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static IGetRandomNumberPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), IGetRandomNumerPrx.class, _IGetRandomNumerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), IGetRandomNumberPrx.class, _IGetRandomNumberPrxI.class);
     }
 
     /**
@@ -134,9 +182,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static IGetRandomNumerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
+    static IGetRandomNumberPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), IGetRandomNumerPrx.class, _IGetRandomNumerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), IGetRandomNumberPrx.class, _IGetRandomNumberPrxI.class);
     }
 
     /**
@@ -144,9 +192,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type.
      **/
-    static IGetRandomNumerPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
+    static IGetRandomNumberPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, IGetRandomNumerPrx.class, _IGetRandomNumerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, IGetRandomNumberPrx.class, _IGetRandomNumberPrxI.class);
     }
 
     /**
@@ -155,9 +203,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type.
      **/
-    static IGetRandomNumerPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static IGetRandomNumberPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, IGetRandomNumerPrx.class, _IGetRandomNumerPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, IGetRandomNumberPrx.class, _IGetRandomNumberPrxI.class);
     }
 
     /**
@@ -166,9 +214,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified per-proxy context.
      **/
     @Override
-    default IGetRandomNumerPrx ice_context(java.util.Map<String, String> newContext)
+    default IGetRandomNumberPrx ice_context(java.util.Map<String, String> newContext)
     {
-        return (IGetRandomNumerPrx)_ice_context(newContext);
+        return (IGetRandomNumberPrx)_ice_context(newContext);
     }
 
     /**
@@ -177,9 +225,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified adapter ID.
      **/
     @Override
-    default IGetRandomNumerPrx ice_adapterId(String newAdapterId)
+    default IGetRandomNumberPrx ice_adapterId(String newAdapterId)
     {
-        return (IGetRandomNumerPrx)_ice_adapterId(newAdapterId);
+        return (IGetRandomNumberPrx)_ice_adapterId(newAdapterId);
     }
 
     /**
@@ -188,9 +236,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoints.
      **/
     @Override
-    default IGetRandomNumerPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
+    default IGetRandomNumberPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
     {
-        return (IGetRandomNumerPrx)_ice_endpoints(newEndpoints);
+        return (IGetRandomNumberPrx)_ice_endpoints(newEndpoints);
     }
 
     /**
@@ -199,9 +247,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator cache timeout.
      **/
     @Override
-    default IGetRandomNumerPrx ice_locatorCacheTimeout(int newTimeout)
+    default IGetRandomNumberPrx ice_locatorCacheTimeout(int newTimeout)
     {
-        return (IGetRandomNumerPrx)_ice_locatorCacheTimeout(newTimeout);
+        return (IGetRandomNumberPrx)_ice_locatorCacheTimeout(newTimeout);
     }
 
     /**
@@ -210,9 +258,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified invocation timeout.
      **/
     @Override
-    default IGetRandomNumerPrx ice_invocationTimeout(int newTimeout)
+    default IGetRandomNumberPrx ice_invocationTimeout(int newTimeout)
     {
-        return (IGetRandomNumerPrx)_ice_invocationTimeout(newTimeout);
+        return (IGetRandomNumberPrx)_ice_invocationTimeout(newTimeout);
     }
 
     /**
@@ -221,9 +269,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified caching policy.
      **/
     @Override
-    default IGetRandomNumerPrx ice_connectionCached(boolean newCache)
+    default IGetRandomNumberPrx ice_connectionCached(boolean newCache)
     {
-        return (IGetRandomNumerPrx)_ice_connectionCached(newCache);
+        return (IGetRandomNumberPrx)_ice_connectionCached(newCache);
     }
 
     /**
@@ -232,9 +280,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoint selection policy.
      **/
     @Override
-    default IGetRandomNumerPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
+    default IGetRandomNumberPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
     {
-        return (IGetRandomNumerPrx)_ice_endpointSelection(newType);
+        return (IGetRandomNumberPrx)_ice_endpointSelection(newType);
     }
 
     /**
@@ -245,9 +293,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default IGetRandomNumerPrx ice_secure(boolean b)
+    default IGetRandomNumberPrx ice_secure(boolean b)
     {
-        return (IGetRandomNumerPrx)_ice_secure(b);
+        return (IGetRandomNumberPrx)_ice_secure(b);
     }
 
     /**
@@ -256,9 +304,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified encoding version.
      **/
     @Override
-    default IGetRandomNumerPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
+    default IGetRandomNumberPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
     {
-        return (IGetRandomNumerPrx)_ice_encodingVersion(e);
+        return (IGetRandomNumberPrx)_ice_encodingVersion(e);
     }
 
     /**
@@ -269,9 +317,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default IGetRandomNumerPrx ice_preferSecure(boolean b)
+    default IGetRandomNumberPrx ice_preferSecure(boolean b)
     {
-        return (IGetRandomNumerPrx)_ice_preferSecure(b);
+        return (IGetRandomNumberPrx)_ice_preferSecure(b);
     }
 
     /**
@@ -280,9 +328,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified router.
      **/
     @Override
-    default IGetRandomNumerPrx ice_router(com.zeroc.Ice.RouterPrx router)
+    default IGetRandomNumberPrx ice_router(com.zeroc.Ice.RouterPrx router)
     {
-        return (IGetRandomNumerPrx)_ice_router(router);
+        return (IGetRandomNumberPrx)_ice_router(router);
     }
 
     /**
@@ -291,9 +339,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator.
      **/
     @Override
-    default IGetRandomNumerPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
+    default IGetRandomNumberPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
     {
-        return (IGetRandomNumerPrx)_ice_locator(locator);
+        return (IGetRandomNumberPrx)_ice_locator(locator);
     }
 
     /**
@@ -302,9 +350,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified collocation optimization.
      **/
     @Override
-    default IGetRandomNumerPrx ice_collocationOptimized(boolean b)
+    default IGetRandomNumberPrx ice_collocationOptimized(boolean b)
     {
-        return (IGetRandomNumerPrx)_ice_collocationOptimized(b);
+        return (IGetRandomNumberPrx)_ice_collocationOptimized(b);
     }
 
     /**
@@ -312,9 +360,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses twoway invocations.
      **/
     @Override
-    default IGetRandomNumerPrx ice_twoway()
+    default IGetRandomNumberPrx ice_twoway()
     {
-        return (IGetRandomNumerPrx)_ice_twoway();
+        return (IGetRandomNumberPrx)_ice_twoway();
     }
 
     /**
@@ -322,9 +370,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses oneway invocations.
      **/
     @Override
-    default IGetRandomNumerPrx ice_oneway()
+    default IGetRandomNumberPrx ice_oneway()
     {
-        return (IGetRandomNumerPrx)_ice_oneway();
+        return (IGetRandomNumberPrx)_ice_oneway();
     }
 
     /**
@@ -332,9 +380,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch oneway invocations.
      **/
     @Override
-    default IGetRandomNumerPrx ice_batchOneway()
+    default IGetRandomNumberPrx ice_batchOneway()
     {
-        return (IGetRandomNumerPrx)_ice_batchOneway();
+        return (IGetRandomNumberPrx)_ice_batchOneway();
     }
 
     /**
@@ -342,9 +390,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses datagram invocations.
      **/
     @Override
-    default IGetRandomNumerPrx ice_datagram()
+    default IGetRandomNumberPrx ice_datagram()
     {
-        return (IGetRandomNumerPrx)_ice_datagram();
+        return (IGetRandomNumberPrx)_ice_datagram();
     }
 
     /**
@@ -352,9 +400,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch datagram invocations.
      **/
     @Override
-    default IGetRandomNumerPrx ice_batchDatagram()
+    default IGetRandomNumberPrx ice_batchDatagram()
     {
-        return (IGetRandomNumerPrx)_ice_batchDatagram();
+        return (IGetRandomNumberPrx)_ice_batchDatagram();
     }
 
     /**
@@ -363,9 +411,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified compression setting.
      **/
     @Override
-    default IGetRandomNumerPrx ice_compress(boolean co)
+    default IGetRandomNumberPrx ice_compress(boolean co)
     {
-        return (IGetRandomNumerPrx)_ice_compress(co);
+        return (IGetRandomNumberPrx)_ice_compress(co);
     }
 
     /**
@@ -374,9 +422,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified timeout.
      **/
     @Override
-    default IGetRandomNumerPrx ice_timeout(int t)
+    default IGetRandomNumberPrx ice_timeout(int t)
     {
-        return (IGetRandomNumerPrx)_ice_timeout(t);
+        return (IGetRandomNumberPrx)_ice_timeout(t);
     }
 
     /**
@@ -385,9 +433,9 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified connection ID.
      **/
     @Override
-    default IGetRandomNumerPrx ice_connectionId(String connectionId)
+    default IGetRandomNumberPrx ice_connectionId(String connectionId)
     {
-        return (IGetRandomNumerPrx)_ice_connectionId(connectionId);
+        return (IGetRandomNumberPrx)_ice_connectionId(connectionId);
     }
 
     /**
@@ -396,13 +444,13 @@ public interface IGetRandomNumerPrx extends com.zeroc.Ice.ObjectPrx
      * @return A fixed proxy bound to the given connection.
      **/
     @Override
-    default IGetRandomNumerPrx ice_fixed(com.zeroc.Ice.Connection connection)
+    default IGetRandomNumberPrx ice_fixed(com.zeroc.Ice.Connection connection)
     {
-        return (IGetRandomNumerPrx)_ice_fixed(connection);
+        return (IGetRandomNumberPrx)_ice_fixed(connection);
     }
 
     static String ice_staticId()
     {
-        return "::Hello::IGetRandomNumer";
+        return "::Hello::IGetRandomNumber";
     }
 }

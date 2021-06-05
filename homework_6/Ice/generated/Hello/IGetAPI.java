@@ -24,7 +24,7 @@ public interface IGetAPI extends com.zeroc.Ice.Object
     String getKoalaFact(com.zeroc.Ice.Current current) throws IOException;
 
     String getLyrics(String title, String artist, com.zeroc.Ice.Current current)
-            throws SongNotFoundError, IOException;
+        throws SongNotFoundError, IOException;
 
     /** @hidden */
     static final String[] _iceIds =

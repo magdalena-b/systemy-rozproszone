@@ -17,8 +17,8 @@ package Hello;
 
 public interface ISetTimer extends com.zeroc.Ice.Object
 {
-    void setTimer(String time, com.zeroc.Ice.Current current)
-        throws WrongTimeError;
+    String setTimer(String time, com.zeroc.Ice.Current current)
+        throws WrongNumberError, InterruptedException;
 
     /** @hidden */
     static final String[] _iceIds =
@@ -53,15 +53,17 @@ public interface ISetTimer extends com.zeroc.Ice.Object
      * @throws com.zeroc.Ice.UserException -
     **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setTimer(ISetTimer obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-        throws com.zeroc.Ice.UserException
-    {
+            throws com.zeroc.Ice.UserException, InterruptedException {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
         String iceP_time;
         iceP_time = istr.readString();
         inS.endReadParams();
-        obj.setTimer(iceP_time, current);
-        return inS.setResult(inS.writeEmptyParams());
+        String ret = obj.setTimer(iceP_time, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeString(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /** @hidden */
@@ -105,7 +107,11 @@ public interface ISetTimer extends com.zeroc.Ice.Object
             }
             case 4:
             {
-                return _iceD_setTimer(this, in, current);
+                try {
+                    return _iceD_setTimer(this, in, current);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

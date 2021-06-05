@@ -16,7 +16,7 @@
 package Hello;
 
 /** @hidden */
-public class _IGetRandomNumerPrxI extends com.zeroc.Ice._ObjectPrxI implements IGetRandomNumerPrx
+public class _IGetRandomNumberPrxI extends com.zeroc.Ice._ObjectPrxI implements IGetRandomNumberPrx
 {
     /** @hidden */
     public static final long serialVersionUID = 0L;

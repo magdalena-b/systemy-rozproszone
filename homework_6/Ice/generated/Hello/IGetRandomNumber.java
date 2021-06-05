@@ -15,16 +15,18 @@
 
 package Hello;
 
-public interface IGetRandomNumer extends com.zeroc.Ice.Object
+public interface IGetRandomNumber extends com.zeroc.Ice.Object
 {
-    int getRandomInt(com.zeroc.Ice.Current current);
+    int getRandomInt(String min, String max, com.zeroc.Ice.Current current)
+        throws WrongNumberError;
 
-    double getRandomDouble(com.zeroc.Ice.Current current);
+    double getRandomDouble(String min, String max, com.zeroc.Ice.Current current)
+        throws WrongNumberError;
 
     /** @hidden */
     static final String[] _iceIds =
     {
-        "::Hello::IGetRandomNumer",
+        "::Hello::IGetRandomNumber",
         "::Ice::Object"
     };
 
@@ -42,7 +44,7 @@ public interface IGetRandomNumer extends com.zeroc.Ice.Object
 
     static String ice_staticId()
     {
-        return "::Hello::IGetRandomNumer";
+        return "::Hello::IGetRandomNumber";
     }
 
     /**
@@ -51,12 +53,19 @@ public interface IGetRandomNumer extends com.zeroc.Ice.Object
      * @param inS -
      * @param current -
      * @return -
+     * @throws com.zeroc.Ice.UserException -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getRandomInt(IGetRandomNumer obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getRandomInt(IGetRandomNumber obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+        throws com.zeroc.Ice.UserException
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        int ret = obj.getRandomInt(current);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_min;
+        String iceP_max;
+        iceP_min = istr.readString();
+        iceP_max = istr.readString();
+        inS.endReadParams();
+        int ret = obj.getRandomInt(iceP_min, iceP_max, current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
         ostr.writeInt(ret);
         inS.endWriteParams(ostr);
@@ -69,12 +78,19 @@ public interface IGetRandomNumer extends com.zeroc.Ice.Object
      * @param inS -
      * @param current -
      * @return -
+     * @throws com.zeroc.Ice.UserException -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getRandomDouble(IGetRandomNumer obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getRandomDouble(IGetRandomNumber obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+        throws com.zeroc.Ice.UserException
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        double ret = obj.getRandomDouble(current);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_min;
+        String iceP_max;
+        iceP_min = istr.readString();
+        iceP_max = istr.readString();
+        inS.endReadParams();
+        double ret = obj.getRandomDouble(iceP_min, iceP_max, current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
         ostr.writeDouble(ret);
         inS.endWriteParams(ostr);

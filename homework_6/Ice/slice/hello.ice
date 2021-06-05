@@ -5,14 +5,14 @@
 module Hello {
 
     exception SongNotFoundError {};
-    exception WrongTimeError {};
+    exception WrongNumberError {};
 
     interface IRecommendMusic {
         string recommendMusic();
     };
 
     interface ISetTimer {
-        void setTimer(string time) throws WrongTimeError;
+        string setTimer(string time) throws WrongNumberError;
     };
 
     interface IGetAPI {
@@ -21,9 +21,9 @@ module Hello {
         string getLyrics(string title, string artist) throws SongNotFoundError;
     };
 
-    interface IGetRandomNumer {
-        int getRandomInt();
-        double getRandomDouble();
+    interface IGetRandomNumber {
+        int getRandomInt(string min, string max) throws WrongNumberError;
+        double getRandomDouble(string min, string max) throws WrongNumberError;
     };
 
 

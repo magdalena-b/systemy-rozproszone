@@ -17,20 +17,20 @@ package Hello;
 
 public interface ISetTimerPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default void setTimer(String time)
-        throws WrongTimeError
+    default String setTimer(String time)
+        throws WrongNumberError
     {
-        setTimer(time, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return setTimer(time, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void setTimer(String time, java.util.Map<String, String> context)
-        throws WrongTimeError
+    default String setTimer(String time, java.util.Map<String, String> context)
+        throws WrongNumberError
     {
         try
         {
-            _iceI_setTimerAsync(time, context, true).waitForResponseOrUserEx();
+            return _iceI_setTimerAsync(time, context, true).waitForResponseOrUserEx();
         }
-        catch(WrongTimeError ex)
+        catch(WrongNumberError ex)
         {
             throw ex;
         }
@@ -40,12 +40,12 @@ public interface ISetTimerPrx extends com.zeroc.Ice.ObjectPrx
         }
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setTimerAsync(String time)
+    default java.util.concurrent.CompletableFuture<java.lang.String> setTimerAsync(String time)
     {
         return _iceI_setTimerAsync(time, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setTimerAsync(String time, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> setTimerAsync(String time, java.util.Map<String, String> context)
     {
         return _iceI_setTimerAsync(time, context, false);
     }
@@ -57,19 +57,23 @@ public interface ISetTimerPrx extends com.zeroc.Ice.ObjectPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setTimerAsync(String iceP_time, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_setTimerAsync(String iceP_time, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setTimer", null, sync, _iceE_setTimer);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setTimer", null, sync, _iceE_setTimer);
         f.invoke(true, context, null, ostr -> {
                      ostr.writeString(iceP_time);
-                 }, null);
+                 }, istr -> {
+                     String ret;
+                     ret = istr.readString();
+                     return ret;
+                 });
         return f;
     }
 
     /** @hidden */
     static final Class<?>[] _iceE_setTimer =
     {
-        WrongTimeError.class
+        WrongNumberError.class
     };
 
     /**

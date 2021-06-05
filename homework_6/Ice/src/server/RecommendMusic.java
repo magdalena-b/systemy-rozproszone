@@ -14,6 +14,7 @@ public class RecommendMusic implements IRecommendMusic {
 
     List<String> bands = new ArrayList<String>();
 
+
     public RecommendMusic() {
         this.bands.add("New Order");
         this.bands.add("Frank Ocean");
@@ -21,6 +22,8 @@ public class RecommendMusic implements IRecommendMusic {
         this.bands.add("Pezet");
         this.bands.add("Kate Bush");
         this.bands.add("Lady Gaga");
+
+        System.out.println("Init RecommendMusic");
 
     }
 

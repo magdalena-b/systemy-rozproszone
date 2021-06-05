@@ -15,27 +15,27 @@
 
 package Hello;
 
-public class WrongTimeError extends com.zeroc.Ice.UserException
+public class WrongNumberError extends com.zeroc.Ice.UserException
 {
-    public WrongTimeError()
+    public WrongNumberError()
     {
     }
 
-    public WrongTimeError(Throwable cause)
+    public WrongNumberError(Throwable cause)
     {
         super(cause);
     }
 
     public String ice_id()
     {
-        return "::Hello::WrongTimeError";
+        return "::Hello::WrongNumberError";
     }
 
     /** @hidden */
     @Override
     protected void _writeImpl(com.zeroc.Ice.OutputStream ostr_)
     {
-        ostr_.startSlice("::Hello::WrongTimeError", -1, true);
+        ostr_.startSlice("::Hello::WrongNumberError", -1, true);
         ostr_.endSlice();
     }
 
@@ -48,5 +48,5 @@ public class WrongTimeError extends com.zeroc.Ice.UserException
     }
 
     /** @hidden */
-    public static final long serialVersionUID = 4408611843798823403L;
+    public static final long serialVersionUID = 7522460823884002013L;
 }

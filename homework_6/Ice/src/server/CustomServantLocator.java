@@ -1,6 +1,9 @@
 package server;
 
+import Hello.IGetAPI;
+import Hello.IGetRandomNumber;
 import Hello.IRecommendMusic;
+import Hello.ISetTimer;
 import com.zeroc.Ice.Object;
 import com.zeroc.Ice.*;
 
@@ -30,6 +33,21 @@ public class CustomServantLocator implements ServantLocator {
                 IRecommendMusic musicServant = new RecommendMusic();
                 adapter.add(musicServant, new Identity(name, ""));
                 return new ServantLocator.LocateResult(musicServant, null);
+
+            case "getAPI":
+                IGetAPI apiServant = new GetAPI();
+                adapter.add(apiServant, new Identity(name, ""));
+                return new ServantLocator.LocateResult(apiServant, null);
+
+            case "setTimer":
+                ISetTimer timerServant = new SetTimer();
+                adapter.add(timerServant, new Identity(name, ""));
+                return new ServantLocator.LocateResult(timerServant, null);
+
+            case "getRandomNumber":
+                IGetRandomNumber randomServant = new GetRandomNumber();
+                adapter.add(randomServant, new Identity(name, ""));
+                return new ServantLocator.LocateResult(randomServant, null);
 
         }
         throw new IllegalStateException();
