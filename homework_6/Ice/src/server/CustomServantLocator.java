@@ -27,7 +27,7 @@ public class CustomServantLocator implements ServantLocator {
         switch (name) {
 
             case "recommendMusic":
-                IRecommendMusic musicServant = new MyRecommendMusic();
+                IRecommendMusic musicServant = new RecommendMusic();
                 adapter.add(musicServant, new Identity(name, ""));
                 return new ServantLocator.LocateResult(musicServant, null);
 

@@ -17,4 +17,5 @@ if __name__ == '__main__':
             line = input()
             if line == "music":
                 print(music_proxy.recommendMusic())
+                # print(music_proxy.getPandaFact())
 

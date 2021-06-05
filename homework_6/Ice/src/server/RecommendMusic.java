@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Random;
 import org.json.*;
 
-public class MyRecommendMusic implements IRecommendMusic {
+public class RecommendMusic implements IRecommendMusic {
 
     List<String> bands = new ArrayList<String>();
 
-    public MyRecommendMusic() {
+    public RecommendMusic() {
         this.bands.add("New Order");
         this.bands.add("Frank Ocean");
         this.bands.add("Lorde");
