@@ -3,10 +3,29 @@ package server;
 import Hello.IRecommendMusic;
 import com.zeroc.Ice.Current;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class MyRecommendMusic implements IRecommendMusic {
+
+    List<String> bands = new ArrayList<String>();
+
+    public MyRecommendMusic() {
+        this.bands.add("New Order");
+        this.bands.add("Frank Ocean");
+        this.bands.add("Lorde");
+        this.bands.add("Pezet");
+        this.bands.add("Kate Bush");
+        this.bands.add("Lady Gaga");
+
+    }
 
     @Override
     public String recommendMusic(Current current) {
-        return "New Order";
+
+        Random random = new Random();
+        int randomInt = random.nextInt(this.bands.size());
+        return bands.get(randomInt);
     }
 }
