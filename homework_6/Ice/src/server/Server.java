@@ -1,4 +1,4 @@
-package sr.ice.server;
+package server;
 
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectAdapter;

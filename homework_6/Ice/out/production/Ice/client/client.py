@@ -1,6 +1,6 @@
 import sys
 import Ice
-Ice.loadSlice('../../../../slice/hello.ice')
+Ice.loadSlice('../../slice/hello.ice')
 import Hello
 
 
