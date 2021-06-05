@@ -19,10 +19,10 @@ public class NotificatorImpl extends NotificatorGrpc.NotificatorImplBase {
 
         ServerCallStreamObserver serverCallresponseObserver = (ServerCallStreamObserver) responseObserver;
 
-        // serverCallresponseObserver.setOnCancelHandler(() -> {
-        //     System.out.println("Client disconnected");
-        //     this.subscriptionsHandler.removeSubscriber(responseObserver);
-        // });
+         serverCallresponseObserver.setOnCancelHandler(() -> {
+             System.out.println("Client disconnected");
+             this.subscriptionHandler.removeSubscriber(responseObserver);
+         });
 
         this.subscriptionHandler.addSubscriber(responseObserver, request);
     }
