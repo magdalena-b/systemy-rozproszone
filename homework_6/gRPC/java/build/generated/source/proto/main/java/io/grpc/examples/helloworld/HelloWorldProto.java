@@ -33,13 +33,13 @@ public final class HelloWorldProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020helloworld.proto\022\nhelloworld\"\034\n\014Subscr" +
-      "iption\022\014\n\004name\030\001 \001(\t\"3\n\014Notification\022\017\n\007" +
-      "message\030\001 \001(\t\022\022\n\ncategories\030\002 \003(\t2R\n\013Not" +
-      "ificator\022C\n\tsubscribe\022\030.helloworld.Subsc" +
-      "ription\032\030.helloworld.Notification\"\0000\001B6\n" +
-      "\033io.grpc.examples.helloworldB\017HelloWorld" +
-      "ProtoP\001\242\002\003HLWb\006proto3"
+      "\n\020helloworld.proto\022\nhelloworld\".\n\014Subscr" +
+      "iption\022\014\n\004city\030\001 \003(\t\022\020\n\010category\030\002 \003(\t\"\037" +
+      "\n\014Notification\022\017\n\007message\030\001 \001(\t2R\n\013Notif" +
+      "icator\022C\n\tsubscribe\022\030.helloworld.Subscri" +
+      "ption\032\030.helloworld.Notification\"\0000\001B6\n\033i" +
+      "o.grpc.examples.helloworldB\017HelloWorldPr" +
+      "otoP\001\242\002\003HLWb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -50,13 +50,13 @@ public final class HelloWorldProto {
     internal_static_helloworld_Subscription_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_helloworld_Subscription_descriptor,
-        new java.lang.String[] { "Name", });
+        new java.lang.String[] { "City", "Category", });
     internal_static_helloworld_Notification_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_helloworld_Notification_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_helloworld_Notification_descriptor,
-        new java.lang.String[] { "Message", "Categories", });
+        new java.lang.String[] { "Message", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

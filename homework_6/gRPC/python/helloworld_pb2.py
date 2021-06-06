@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10helloworld.proto\x12\nhelloworld\"\x1c\n\x0cSubscription\x12\x0c\n\x04name\x18\x01 \x01(\t\"3\n\x0cNotification\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x12\n\ncategories\x18\x02 \x03(\t2R\n\x0bNotificator\x12\x43\n\tsubscribe\x12\x18.helloworld.Subscription\x1a\x18.helloworld.Notification\"\x00\x30\x01\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3'
+  serialized_pb=b'\n\x10helloworld.proto\x12\nhelloworld\".\n\x0cSubscription\x12\x0c\n\x04\x63ity\x18\x01 \x03(\t\x12\x10\n\x08\x63\x61tegory\x18\x02 \x03(\t\"\x1f\n\x0cNotification\x12\x0f\n\x07message\x18\x01 \x01(\t2R\n\x0bNotificator\x12\x43\n\tsubscribe\x12\x18.helloworld.Subscription\x1a\x18.helloworld.Notification\"\x00\x30\x01\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3'
 )
 
 
@@ -34,9 +34,16 @@ _SUBSCRIPTION = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='helloworld.Subscription.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='city', full_name='helloworld.Subscription.city', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='category', full_name='helloworld.Subscription.category', index=1,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -53,7 +60,7 @@ _SUBSCRIPTION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=32,
-  serialized_end=60,
+  serialized_end=78,
 )
 
 
@@ -72,13 +79,6 @@ _NOTIFICATION = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='categories', full_name='helloworld.Notification.categories', index=1,
-      number=2, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -91,8 +91,8 @@ _NOTIFICATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=62,
-  serialized_end=113,
+  serialized_start=80,
+  serialized_end=111,
 )
 
 DESCRIPTOR.message_types_by_name['Subscription'] = _SUBSCRIPTION
@@ -123,8 +123,8 @@ _NOTIFICATOR = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=115,
-  serialized_end=197,
+  serialized_start=113,
+  serialized_end=195,
   methods=[
   _descriptor.MethodDescriptor(
     name='subscribe',

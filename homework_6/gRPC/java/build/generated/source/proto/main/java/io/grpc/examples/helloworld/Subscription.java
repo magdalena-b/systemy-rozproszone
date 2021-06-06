@@ -16,7 +16,8 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private Subscription() {
-    name_ = "";
+    city_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
   }
 
   @java.lang.Override
@@ -39,6 +40,7 @@ private static final long serialVersionUID = 0L;
     if (extensionRegistry == null) {
       throw new java.lang.NullPointerException();
     }
+    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -51,8 +53,20 @@ private static final long serialVersionUID = 0L;
             break;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
-
-            name_ = s;
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+              city_ = new com.google.protobuf.LazyStringArrayList();
+              mutable_bitField0_ |= 0x00000001;
+            }
+            city_.add(s);
+            break;
+          }
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+              category_ = new com.google.protobuf.LazyStringArrayList();
+              mutable_bitField0_ |= 0x00000002;
+            }
+            category_.add(s);
             break;
           }
           default: {
@@ -70,6 +84,12 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
+      if (((mutable_bitField0_ & 0x00000001) != 0)) {
+        city_ = city_.getUnmodifiableView();
+      }
+      if (((mutable_bitField0_ & 0x00000002) != 0)) {
+        category_ = category_.getUnmodifiableView();
+      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -87,42 +107,74 @@ private static final long serialVersionUID = 0L;
             io.grpc.examples.helloworld.Subscription.class, io.grpc.examples.helloworld.Subscription.Builder.class);
   }
 
-  public static final int NAME_FIELD_NUMBER = 1;
-  private volatile java.lang.Object name_;
+  public static final int CITY_FIELD_NUMBER = 1;
+  private com.google.protobuf.LazyStringList city_;
   /**
-   * <code>string name = 1;</code>
-   * @return The name.
+   * <code>repeated string city = 1;</code>
+   * @return A list containing the city.
    */
-  @java.lang.Override
-  public java.lang.String getName() {
-    java.lang.Object ref = name_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      name_ = s;
-      return s;
-    }
+  public com.google.protobuf.ProtocolStringList
+      getCityList() {
+    return city_;
   }
   /**
-   * <code>string name = 1;</code>
-   * @return The bytes for name.
+   * <code>repeated string city = 1;</code>
+   * @return The count of city.
    */
-  @java.lang.Override
+  public int getCityCount() {
+    return city_.size();
+  }
+  /**
+   * <code>repeated string city = 1;</code>
+   * @param index The index of the element to return.
+   * @return The city at the given index.
+   */
+  public java.lang.String getCity(int index) {
+    return city_.get(index);
+  }
+  /**
+   * <code>repeated string city = 1;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the city at the given index.
+   */
   public com.google.protobuf.ByteString
-      getNameBytes() {
-    java.lang.Object ref = name_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      name_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+      getCityBytes(int index) {
+    return city_.getByteString(index);
+  }
+
+  public static final int CATEGORY_FIELD_NUMBER = 2;
+  private com.google.protobuf.LazyStringList category_;
+  /**
+   * <code>repeated string category = 2;</code>
+   * @return A list containing the category.
+   */
+  public com.google.protobuf.ProtocolStringList
+      getCategoryList() {
+    return category_;
+  }
+  /**
+   * <code>repeated string category = 2;</code>
+   * @return The count of category.
+   */
+  public int getCategoryCount() {
+    return category_.size();
+  }
+  /**
+   * <code>repeated string category = 2;</code>
+   * @param index The index of the element to return.
+   * @return The category at the given index.
+   */
+  public java.lang.String getCategory(int index) {
+    return category_.get(index);
+  }
+  /**
+   * <code>repeated string category = 2;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the category at the given index.
+   */
+  public com.google.protobuf.ByteString
+      getCategoryBytes(int index) {
+    return category_.getByteString(index);
   }
 
   private byte memoizedIsInitialized = -1;
@@ -139,8 +191,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getNameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+    for (int i = 0; i < city_.size(); i++) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, city_.getRaw(i));
+    }
+    for (int i = 0; i < category_.size(); i++) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, category_.getRaw(i));
     }
     unknownFields.writeTo(output);
   }
@@ -151,8 +206,21 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getNameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+    {
+      int dataSize = 0;
+      for (int i = 0; i < city_.size(); i++) {
+        dataSize += computeStringSizeNoTag(city_.getRaw(i));
+      }
+      size += dataSize;
+      size += 1 * getCityList().size();
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < category_.size(); i++) {
+        dataSize += computeStringSizeNoTag(category_.getRaw(i));
+      }
+      size += dataSize;
+      size += 1 * getCategoryList().size();
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -169,8 +237,10 @@ private static final long serialVersionUID = 0L;
     }
     io.grpc.examples.helloworld.Subscription other = (io.grpc.examples.helloworld.Subscription) obj;
 
-    if (!getName()
-        .equals(other.getName())) return false;
+    if (!getCityList()
+        .equals(other.getCityList())) return false;
+    if (!getCategoryList()
+        .equals(other.getCategoryList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -182,8 +252,14 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + NAME_FIELD_NUMBER;
-    hash = (53 * hash) + getName().hashCode();
+    if (getCityCount() > 0) {
+      hash = (37 * hash) + CITY_FIELD_NUMBER;
+      hash = (53 * hash) + getCityList().hashCode();
+    }
+    if (getCategoryCount() > 0) {
+      hash = (37 * hash) + CATEGORY_FIELD_NUMBER;
+      hash = (53 * hash) + getCategoryList().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -317,8 +393,10 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      name_ = "";
-
+      city_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      bitField0_ = (bitField0_ & ~0x00000001);
+      category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      bitField0_ = (bitField0_ & ~0x00000002);
       return this;
     }
 
@@ -345,7 +423,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public io.grpc.examples.helloworld.Subscription buildPartial() {
       io.grpc.examples.helloworld.Subscription result = new io.grpc.examples.helloworld.Subscription(this);
-      result.name_ = name_;
+      int from_bitField0_ = bitField0_;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        city_ = city_.getUnmodifiableView();
+        bitField0_ = (bitField0_ & ~0x00000001);
+      }
+      result.city_ = city_;
+      if (((bitField0_ & 0x00000002) != 0)) {
+        category_ = category_.getUnmodifiableView();
+        bitField0_ = (bitField0_ & ~0x00000002);
+      }
+      result.category_ = category_;
       onBuilt();
       return result;
     }
@@ -394,8 +482,24 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(io.grpc.examples.helloworld.Subscription other) {
       if (other == io.grpc.examples.helloworld.Subscription.getDefaultInstance()) return this;
-      if (!other.getName().isEmpty()) {
-        name_ = other.name_;
+      if (!other.city_.isEmpty()) {
+        if (city_.isEmpty()) {
+          city_ = other.city_;
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          ensureCityIsMutable();
+          city_.addAll(other.city_);
+        }
+        onChanged();
+      }
+      if (!other.category_.isEmpty()) {
+        if (category_.isEmpty()) {
+          category_ = other.category_;
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          ensureCategoryIsMutable();
+          category_.addAll(other.category_);
+        }
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -426,79 +530,224 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int bitField0_;
 
-    private java.lang.Object name_ = "";
-    /**
-     * <code>string name = 1;</code>
-     * @return The name.
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    private com.google.protobuf.LazyStringList city_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    private void ensureCityIsMutable() {
+      if (!((bitField0_ & 0x00000001) != 0)) {
+        city_ = new com.google.protobuf.LazyStringArrayList(city_);
+        bitField0_ |= 0x00000001;
+       }
     }
     /**
-     * <code>string name = 1;</code>
-     * @return The bytes for name.
+     * <code>repeated string city = 1;</code>
+     * @return A list containing the city.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getCityList() {
+      return city_.getUnmodifiableView();
+    }
+    /**
+     * <code>repeated string city = 1;</code>
+     * @return The count of city.
+     */
+    public int getCityCount() {
+      return city_.size();
+    }
+    /**
+     * <code>repeated string city = 1;</code>
+     * @param index The index of the element to return.
+     * @return The city at the given index.
+     */
+    public java.lang.String getCity(int index) {
+      return city_.get(index);
+    }
+    /**
+     * <code>repeated string city = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the city at the given index.
      */
     public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+        getCityBytes(int index) {
+      return city_.getByteString(index);
     }
     /**
-     * <code>string name = 1;</code>
-     * @param value The name to set.
+     * <code>repeated string city = 1;</code>
+     * @param index The index to set the value at.
+     * @param value The city to set.
      * @return This builder for chaining.
      */
-    public Builder setName(
+    public Builder setCity(
+        int index, java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCityIsMutable();
+      city_.set(index, value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string city = 1;</code>
+     * @param value The city to add.
+     * @return This builder for chaining.
+     */
+    public Builder addCity(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  
-      name_ = value;
+  ensureCityIsMutable();
+      city_.add(value);
       onChanged();
       return this;
     }
     /**
-     * <code>string name = 1;</code>
+     * <code>repeated string city = 1;</code>
+     * @param values The city to add.
      * @return This builder for chaining.
      */
-    public Builder clearName() {
-      
-      name_ = getDefaultInstance().getName();
+    public Builder addAllCity(
+        java.lang.Iterable<java.lang.String> values) {
+      ensureCityIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, city_);
       onChanged();
       return this;
     }
     /**
-     * <code>string name = 1;</code>
-     * @param value The bytes for name to set.
+     * <code>repeated string city = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder setNameBytes(
+    public Builder clearCity() {
+      city_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      bitField0_ = (bitField0_ & ~0x00000001);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string city = 1;</code>
+     * @param value The bytes of the city to add.
+     * @return This builder for chaining.
+     */
+    public Builder addCityBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-      
-      name_ = value;
+      ensureCityIsMutable();
+      city_.add(value);
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.LazyStringList category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    private void ensureCategoryIsMutable() {
+      if (!((bitField0_ & 0x00000002) != 0)) {
+        category_ = new com.google.protobuf.LazyStringArrayList(category_);
+        bitField0_ |= 0x00000002;
+       }
+    }
+    /**
+     * <code>repeated string category = 2;</code>
+     * @return A list containing the category.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getCategoryList() {
+      return category_.getUnmodifiableView();
+    }
+    /**
+     * <code>repeated string category = 2;</code>
+     * @return The count of category.
+     */
+    public int getCategoryCount() {
+      return category_.size();
+    }
+    /**
+     * <code>repeated string category = 2;</code>
+     * @param index The index of the element to return.
+     * @return The category at the given index.
+     */
+    public java.lang.String getCategory(int index) {
+      return category_.get(index);
+    }
+    /**
+     * <code>repeated string category = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the category at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getCategoryBytes(int index) {
+      return category_.getByteString(index);
+    }
+    /**
+     * <code>repeated string category = 2;</code>
+     * @param index The index to set the value at.
+     * @param value The category to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCategory(
+        int index, java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCategoryIsMutable();
+      category_.set(index, value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string category = 2;</code>
+     * @param value The category to add.
+     * @return This builder for chaining.
+     */
+    public Builder addCategory(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCategoryIsMutable();
+      category_.add(value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string category = 2;</code>
+     * @param values The category to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAllCategory(
+        java.lang.Iterable<java.lang.String> values) {
+      ensureCategoryIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, category_);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string category = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearCategory() {
+      category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      bitField0_ = (bitField0_ & ~0x00000002);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string category = 2;</code>
+     * @param value The bytes of the category to add.
+     * @return This builder for chaining.
+     */
+    public Builder addCategoryBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      ensureCategoryIsMutable();
+      category_.add(value);
       onChanged();
       return this;
     }

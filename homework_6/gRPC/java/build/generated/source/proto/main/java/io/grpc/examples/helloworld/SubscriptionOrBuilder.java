@@ -8,14 +8,52 @@ public interface SubscriptionOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string name = 1;</code>
-   * @return The name.
+   * <code>repeated string city = 1;</code>
+   * @return A list containing the city.
    */
-  java.lang.String getName();
+  java.util.List<java.lang.String>
+      getCityList();
   /**
-   * <code>string name = 1;</code>
-   * @return The bytes for name.
+   * <code>repeated string city = 1;</code>
+   * @return The count of city.
+   */
+  int getCityCount();
+  /**
+   * <code>repeated string city = 1;</code>
+   * @param index The index of the element to return.
+   * @return The city at the given index.
+   */
+  java.lang.String getCity(int index);
+  /**
+   * <code>repeated string city = 1;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the city at the given index.
    */
   com.google.protobuf.ByteString
-      getNameBytes();
+      getCityBytes(int index);
+
+  /**
+   * <code>repeated string category = 2;</code>
+   * @return A list containing the category.
+   */
+  java.util.List<java.lang.String>
+      getCategoryList();
+  /**
+   * <code>repeated string category = 2;</code>
+   * @return The count of category.
+   */
+  int getCategoryCount();
+  /**
+   * <code>repeated string category = 2;</code>
+   * @param index The index of the element to return.
+   * @return The category at the given index.
+   */
+  java.lang.String getCategory(int index);
+  /**
+   * <code>repeated string category = 2;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the category at the given index.
+   */
+  com.google.protobuf.ByteString
+      getCategoryBytes(int index);
 }

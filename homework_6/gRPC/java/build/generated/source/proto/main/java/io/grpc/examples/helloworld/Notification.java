@@ -17,7 +17,6 @@ private static final long serialVersionUID = 0L;
   }
   private Notification() {
     message_ = "";
-    categories_ = com.google.protobuf.LazyStringArrayList.EMPTY;
   }
 
   @java.lang.Override
@@ -40,7 +39,6 @@ private static final long serialVersionUID = 0L;
     if (extensionRegistry == null) {
       throw new java.lang.NullPointerException();
     }
-    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -55,15 +53,6 @@ private static final long serialVersionUID = 0L;
             java.lang.String s = input.readStringRequireUtf8();
 
             message_ = s;
-            break;
-          }
-          case 18: {
-            java.lang.String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              categories_ = new com.google.protobuf.LazyStringArrayList();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            categories_.add(s);
             break;
           }
           default: {
@@ -81,9 +70,6 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        categories_ = categories_.getUnmodifiableView();
-      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -139,41 +125,6 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int CATEGORIES_FIELD_NUMBER = 2;
-  private com.google.protobuf.LazyStringList categories_;
-  /**
-   * <code>repeated string categories = 2;</code>
-   * @return A list containing the categories.
-   */
-  public com.google.protobuf.ProtocolStringList
-      getCategoriesList() {
-    return categories_;
-  }
-  /**
-   * <code>repeated string categories = 2;</code>
-   * @return The count of categories.
-   */
-  public int getCategoriesCount() {
-    return categories_.size();
-  }
-  /**
-   * <code>repeated string categories = 2;</code>
-   * @param index The index of the element to return.
-   * @return The categories at the given index.
-   */
-  public java.lang.String getCategories(int index) {
-    return categories_.get(index);
-  }
-  /**
-   * <code>repeated string categories = 2;</code>
-   * @param index The index of the value to return.
-   * @return The bytes of the categories at the given index.
-   */
-  public com.google.protobuf.ByteString
-      getCategoriesBytes(int index) {
-    return categories_.getByteString(index);
-  }
-
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -191,9 +142,6 @@ private static final long serialVersionUID = 0L;
     if (!getMessageBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, message_);
     }
-    for (int i = 0; i < categories_.size(); i++) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, categories_.getRaw(i));
-    }
     unknownFields.writeTo(output);
   }
 
@@ -205,14 +153,6 @@ private static final long serialVersionUID = 0L;
     size = 0;
     if (!getMessageBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, message_);
-    }
-    {
-      int dataSize = 0;
-      for (int i = 0; i < categories_.size(); i++) {
-        dataSize += computeStringSizeNoTag(categories_.getRaw(i));
-      }
-      size += dataSize;
-      size += 1 * getCategoriesList().size();
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -231,8 +171,6 @@ private static final long serialVersionUID = 0L;
 
     if (!getMessage()
         .equals(other.getMessage())) return false;
-    if (!getCategoriesList()
-        .equals(other.getCategoriesList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -246,10 +184,6 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
     hash = (53 * hash) + getMessage().hashCode();
-    if (getCategoriesCount() > 0) {
-      hash = (37 * hash) + CATEGORIES_FIELD_NUMBER;
-      hash = (53 * hash) + getCategoriesList().hashCode();
-    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -385,8 +319,6 @@ private static final long serialVersionUID = 0L;
       super.clear();
       message_ = "";
 
-      categories_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000001);
       return this;
     }
 
@@ -413,13 +345,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public io.grpc.examples.helloworld.Notification buildPartial() {
       io.grpc.examples.helloworld.Notification result = new io.grpc.examples.helloworld.Notification(this);
-      int from_bitField0_ = bitField0_;
       result.message_ = message_;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        categories_ = categories_.getUnmodifiableView();
-        bitField0_ = (bitField0_ & ~0x00000001);
-      }
-      result.categories_ = categories_;
       onBuilt();
       return result;
     }
@@ -472,16 +398,6 @@ private static final long serialVersionUID = 0L;
         message_ = other.message_;
         onChanged();
       }
-      if (!other.categories_.isEmpty()) {
-        if (categories_.isEmpty()) {
-          categories_ = other.categories_;
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          ensureCategoriesIsMutable();
-          categories_.addAll(other.categories_);
-        }
-        onChanged();
-      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -510,7 +426,6 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
-    private int bitField0_;
 
     private java.lang.Object message_ = "";
     /**
@@ -584,116 +499,6 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       message_ = value;
-      onChanged();
-      return this;
-    }
-
-    private com.google.protobuf.LazyStringList categories_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-    private void ensureCategoriesIsMutable() {
-      if (!((bitField0_ & 0x00000001) != 0)) {
-        categories_ = new com.google.protobuf.LazyStringArrayList(categories_);
-        bitField0_ |= 0x00000001;
-       }
-    }
-    /**
-     * <code>repeated string categories = 2;</code>
-     * @return A list containing the categories.
-     */
-    public com.google.protobuf.ProtocolStringList
-        getCategoriesList() {
-      return categories_.getUnmodifiableView();
-    }
-    /**
-     * <code>repeated string categories = 2;</code>
-     * @return The count of categories.
-     */
-    public int getCategoriesCount() {
-      return categories_.size();
-    }
-    /**
-     * <code>repeated string categories = 2;</code>
-     * @param index The index of the element to return.
-     * @return The categories at the given index.
-     */
-    public java.lang.String getCategories(int index) {
-      return categories_.get(index);
-    }
-    /**
-     * <code>repeated string categories = 2;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the categories at the given index.
-     */
-    public com.google.protobuf.ByteString
-        getCategoriesBytes(int index) {
-      return categories_.getByteString(index);
-    }
-    /**
-     * <code>repeated string categories = 2;</code>
-     * @param index The index to set the value at.
-     * @param value The categories to set.
-     * @return This builder for chaining.
-     */
-    public Builder setCategories(
-        int index, java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureCategoriesIsMutable();
-      categories_.set(index, value);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string categories = 2;</code>
-     * @param value The categories to add.
-     * @return This builder for chaining.
-     */
-    public Builder addCategories(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureCategoriesIsMutable();
-      categories_.add(value);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string categories = 2;</code>
-     * @param values The categories to add.
-     * @return This builder for chaining.
-     */
-    public Builder addAllCategories(
-        java.lang.Iterable<java.lang.String> values) {
-      ensureCategoriesIsMutable();
-      com.google.protobuf.AbstractMessageLite.Builder.addAll(
-          values, categories_);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string categories = 2;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearCategories() {
-      categories_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000001);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string categories = 2;</code>
-     * @param value The bytes of the categories to add.
-     * @return This builder for chaining.
-     */
-    public Builder addCategoriesBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      ensureCategoriesIsMutable();
-      categories_.add(value);
       onChanged();
       return this;
     }

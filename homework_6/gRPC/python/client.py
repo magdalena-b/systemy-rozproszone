@@ -10,11 +10,77 @@ import helloworld_pb2_grpc as helloworld_pb2_grpc
 
 
 
+def get_cities():
+
+    cities = list()
+
+    print("Zapisz się na powiadomenia o zawodach w miastach (możesz wybrać kilka): ")
+    print("1 - Kraków")
+    print("2 - Poznań")
+    print("3 - Warszawa")
+    print("Przykładowy input: 1 2")
+    print("Wybierz miasta: ")
+    input_cities = input()
+    chosen_cities = input_cities.split(" ")
+
+    for city in chosen_cities:
+        if city == "1":
+            cities.append("Krakow")
+        elif city == "2":
+            cities.append("Poznan")
+        elif city == "3":
+            cities.append("Warszawa")
+        else:
+            print("Nieprawidłowy input")
+            cities = get_cities()
+
+    return cities
+
+
+def get_categories():
+
+    categories = list()
+
+    print("Zapisz się na powiadomenia o zawodach w dyscyplinach (możesz wybrać kilka): ")
+    print("1 - Boks")
+    print("2 - Kickboxing formuła K1")
+    print("3 - Kickboxing formuła Low Kick")
+    print("4 - Kickboxing formuła Kick Light")
+    print("5 - Muay Thai")
+    print("Przykładowy input: 1 2 5")
+    print("Wybierz dyscypliny: ")
+    input_categories = input()
+    chosen_categories = input_categories.split(" ")
+
+    for category in chosen_categories:
+        if category == "1":
+            categories.append("Boks")
+        
+        elif category == "2":
+            categories.append("K1")
+        
+        elif category == "3":
+            categories.append("Low_Kick")
+
+        elif category == "4":
+            categories.append("Kick_Light")
+
+        elif category == "5":
+            categories.append("Muay_Thai")
+        
+        else:
+            print("Nieprawidłowy input")
+            categories = get_categories()
+
+    return categories
 
 
 def run():
 
-    subscription = helloworld_pb2.Subscription(name="Bob")
+    cities = get_cities()
+    categories = get_categories()
+
+    subscription = helloworld_pb2.Subscription(city=cities, category=categories)
 
     try:
         while True:
@@ -48,33 +114,3 @@ def run():
 if __name__ == '__main__':
     run()
 
-# def subscribe(stub):
-#     print("SUBSCRIBE")
-#     pack = helloworld_pb2.Subscription()
-#     result = stub.subscribe(pack, wait_for_ready = True)
-#     print(result)
-#     listen(stub)
-
-
-
-# def listen(stub):
-#     print("LISTEN")
-#     thread = threading.Thread(target = callback, args=(stub))
-#     thread.start()
-
-
-# def callback(stub):
-#     try:
-#         print("CALLBACK")
-#         result = stub.listen(helloworld_pb2.SubscriptionRequest())
-
-#         for notification in result:
-#             print(notification)
-#             print("lol")
-#     except:
-#         print("Error in callback")
-
-
-# if __name__ == '__main__':
-#     logging.basicConfig()
-#     run()

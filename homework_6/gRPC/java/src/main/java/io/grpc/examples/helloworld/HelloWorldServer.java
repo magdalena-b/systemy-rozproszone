@@ -60,11 +60,9 @@ public class HelloWorldServer {
             // System.out.print("> ");
             // System.out.flush();
 
-          Notification notification = Notification.newBuilder()
-              .setMessage("heyy")
-              .build();
 
-          this.subscriptionHandler.sendNotification(notification);
+
+          this.subscriptionHandler.sendNotification();
           try {
             TimeUnit.SECONDS.sleep(1);
           }

@@ -10,12 +10,12 @@ package helloworld;
 
 
 message Subscription {
-  string name = 1;
+  repeated string city = 1;
+  repeated string category = 2;
 }
 
 message Notification {
   string message = 1;
-  repeated string categories = 2;
 }
 
 
