@@ -11,12 +11,6 @@ import java.util.HashMap;
 
 public class CustomServantLocator implements ServantLocator {
 
-    HashMap<String, Object> servants;
-
-    public CustomServantLocator() {
-        this.servants = new HashMap<String, Object>();
-    }
-
 
     @Override
     public LocateResult locate(Current current) {
@@ -24,8 +18,6 @@ public class CustomServantLocator implements ServantLocator {
         System.out.println("Locating servant for " + name);
 
         ObjectAdapter adapter = current.adapter;
-
-
 
         switch (name) {
 

@@ -1,0 +1,30 @@
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
+
+package helloworld;
+
+
+enum Event {
+  AMATEUR = 0;
+  ATHLETE =  1;
+}
+
+message Subscription {
+  repeated string city = 1;
+  repeated string category = 2;
+  Event event = 3;
+}
+
+message Notification {
+  string message = 1;
+}
+
+
+service Notificator {
+  rpc subscribe(Subscription) returns (stream Notification) {}
+}

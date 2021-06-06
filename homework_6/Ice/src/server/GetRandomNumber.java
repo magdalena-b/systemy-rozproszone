@@ -6,6 +6,11 @@ import com.zeroc.Ice.Current;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GetRandomNumber implements IGetRandomNumber {
+
+    public GetRandomNumber(){
+        System.out.println("Init GetRandomNumber");
+    }
+
     @Override
     public int getRandomInt(String min, String max, Current current) throws WrongNumberError {
 

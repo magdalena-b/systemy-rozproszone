@@ -121,6 +121,7 @@ def run():
 
                     if e.details() == 'Stream removed':
                         print('Server disconnected, trying to reconnect...')
+                        pass
 
                     elif status_code == grpc.StatusCode.UNAVAILABLE:
                         print('Server unavailable')
