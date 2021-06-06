@@ -56,4 +56,15 @@ public interface SubscriptionOrBuilder extends
    */
   com.google.protobuf.ByteString
       getCategoryBytes(int index);
+
+  /**
+   * <code>.helloworld.Event event = 3;</code>
+   * @return The enum numeric value on the wire for event.
+   */
+  int getEventValue();
+  /**
+   * <code>.helloworld.Event event = 3;</code>
+   * @return The event.
+   */
+  io.grpc.examples.helloworld.Event getEvent();
 }

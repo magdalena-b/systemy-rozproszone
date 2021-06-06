@@ -18,6 +18,7 @@ private static final long serialVersionUID = 0L;
   private Subscription() {
     city_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    event_ = 0;
   }
 
   @java.lang.Override
@@ -67,6 +68,12 @@ private static final long serialVersionUID = 0L;
               mutable_bitField0_ |= 0x00000002;
             }
             category_.add(s);
+            break;
+          }
+          case 24: {
+            int rawValue = input.readEnum();
+
+            event_ = rawValue;
             break;
           }
           default: {
@@ -177,6 +184,25 @@ private static final long serialVersionUID = 0L;
     return category_.getByteString(index);
   }
 
+  public static final int EVENT_FIELD_NUMBER = 3;
+  private int event_;
+  /**
+   * <code>.helloworld.Event event = 3;</code>
+   * @return The enum numeric value on the wire for event.
+   */
+  @java.lang.Override public int getEventValue() {
+    return event_;
+  }
+  /**
+   * <code>.helloworld.Event event = 3;</code>
+   * @return The event.
+   */
+  @java.lang.Override public io.grpc.examples.helloworld.Event getEvent() {
+    @SuppressWarnings("deprecation")
+    io.grpc.examples.helloworld.Event result = io.grpc.examples.helloworld.Event.valueOf(event_);
+    return result == null ? io.grpc.examples.helloworld.Event.UNRECOGNIZED : result;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -196,6 +222,9 @@ private static final long serialVersionUID = 0L;
     }
     for (int i = 0; i < category_.size(); i++) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, category_.getRaw(i));
+    }
+    if (event_ != io.grpc.examples.helloworld.Event.AMATEUR.getNumber()) {
+      output.writeEnum(3, event_);
     }
     unknownFields.writeTo(output);
   }
@@ -222,6 +251,10 @@ private static final long serialVersionUID = 0L;
       size += dataSize;
       size += 1 * getCategoryList().size();
     }
+    if (event_ != io.grpc.examples.helloworld.Event.AMATEUR.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(3, event_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -241,6 +274,7 @@ private static final long serialVersionUID = 0L;
         .equals(other.getCityList())) return false;
     if (!getCategoryList()
         .equals(other.getCategoryList())) return false;
+    if (event_ != other.event_) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -260,6 +294,8 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + CATEGORY_FIELD_NUMBER;
       hash = (53 * hash) + getCategoryList().hashCode();
     }
+    hash = (37 * hash) + EVENT_FIELD_NUMBER;
+    hash = (53 * hash) + event_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -397,6 +433,8 @@ private static final long serialVersionUID = 0L;
       bitField0_ = (bitField0_ & ~0x00000001);
       category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       bitField0_ = (bitField0_ & ~0x00000002);
+      event_ = 0;
+
       return this;
     }
 
@@ -434,6 +472,7 @@ private static final long serialVersionUID = 0L;
         bitField0_ = (bitField0_ & ~0x00000002);
       }
       result.category_ = category_;
+      result.event_ = event_;
       onBuilt();
       return result;
     }
@@ -501,6 +540,9 @@ private static final long serialVersionUID = 0L;
           category_.addAll(other.category_);
         }
         onChanged();
+      }
+      if (other.event_ != 0) {
+        setEventValue(other.getEventValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -748,6 +790,60 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       ensureCategoryIsMutable();
       category_.add(value);
+      onChanged();
+      return this;
+    }
+
+    private int event_ = 0;
+    /**
+     * <code>.helloworld.Event event = 3;</code>
+     * @return The enum numeric value on the wire for event.
+     */
+    @java.lang.Override public int getEventValue() {
+      return event_;
+    }
+    /**
+     * <code>.helloworld.Event event = 3;</code>
+     * @param value The enum numeric value on the wire for event to set.
+     * @return This builder for chaining.
+     */
+    public Builder setEventValue(int value) {
+      
+      event_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.helloworld.Event event = 3;</code>
+     * @return The event.
+     */
+    @java.lang.Override
+    public io.grpc.examples.helloworld.Event getEvent() {
+      @SuppressWarnings("deprecation")
+      io.grpc.examples.helloworld.Event result = io.grpc.examples.helloworld.Event.valueOf(event_);
+      return result == null ? io.grpc.examples.helloworld.Event.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.helloworld.Event event = 3;</code>
+     * @param value The event to set.
+     * @return This builder for chaining.
+     */
+    public Builder setEvent(io.grpc.examples.helloworld.Event value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      event_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.helloworld.Event event = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearEvent() {
+      
+      event_ = 0;
       onChanged();
       return this;
     }

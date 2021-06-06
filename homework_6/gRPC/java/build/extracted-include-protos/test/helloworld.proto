@@ -9,9 +9,15 @@ option objc_class_prefix = "HLW";
 package helloworld;
 
 
+enum Event {
+  AMATEUR = 0;
+  ATHLETE =  1;
+}
+
 message Subscription {
   repeated string city = 1;
   repeated string category = 2;
+  Event event = 3;
 }
 
 message Notification {

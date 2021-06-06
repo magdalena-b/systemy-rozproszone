@@ -73,11 +73,10 @@ if __name__ == '__main__':
                 min = input()
                 print("Max: ")
                 max = input()
-                print(random_proxy.getRandomInt(min, max))
-                # try:
-                #     print(random_proxy.getRandomInt(min, max))
-                # except:
-                #     print("Wrong number input")
+                try:
+                    print(random_proxy.getRandomInt(min, max))
+                except:
+                    print("Wrong number input")
 
 
             elif line == "random double":

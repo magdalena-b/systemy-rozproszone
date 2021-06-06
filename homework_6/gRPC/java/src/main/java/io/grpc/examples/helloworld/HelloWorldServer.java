@@ -52,16 +52,8 @@ public class HelloWorldServer {
     }
 
   public void handleMessages() {
-      // logger.info("Waiting for messages...");
-
-      // BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
       while (true) {
-            // System.out.print("> ");
-            // System.out.flush();
-
-
-
           this.subscriptionHandler.sendNotification();
           try {
             TimeUnit.SECONDS.sleep(1);
@@ -71,7 +63,7 @@ public class HelloWorldServer {
           }
       }
 
-    // this.subscriptionsHandler.shutdown();
+    // this.subscriptionHandler.shutdown();
   }
 }
 

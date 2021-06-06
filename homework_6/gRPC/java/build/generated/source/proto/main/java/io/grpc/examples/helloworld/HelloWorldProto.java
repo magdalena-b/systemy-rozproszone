@@ -33,13 +33,15 @@ public final class HelloWorldProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020helloworld.proto\022\nhelloworld\".\n\014Subscr" +
-      "iption\022\014\n\004city\030\001 \003(\t\022\020\n\010category\030\002 \003(\t\"\037" +
-      "\n\014Notification\022\017\n\007message\030\001 \001(\t2R\n\013Notif" +
-      "icator\022C\n\tsubscribe\022\030.helloworld.Subscri" +
-      "ption\032\030.helloworld.Notification\"\0000\001B6\n\033i" +
-      "o.grpc.examples.helloworldB\017HelloWorldPr" +
-      "otoP\001\242\002\003HLWb\006proto3"
+      "\n\020helloworld.proto\022\nhelloworld\"P\n\014Subscr" +
+      "iption\022\014\n\004city\030\001 \003(\t\022\020\n\010category\030\002 \003(\t\022 " +
+      "\n\005event\030\003 \001(\0162\021.helloworld.Event\"\037\n\014Noti" +
+      "fication\022\017\n\007message\030\001 \001(\t*!\n\005Event\022\013\n\007AM" +
+      "ATEUR\020\000\022\013\n\007ATHLETE\020\0012R\n\013Notificator\022C\n\ts" +
+      "ubscribe\022\030.helloworld.Subscription\032\030.hel" +
+      "loworld.Notification\"\0000\001B6\n\033io.grpc.exam" +
+      "ples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -50,7 +52,7 @@ public final class HelloWorldProto {
     internal_static_helloworld_Subscription_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_helloworld_Subscription_descriptor,
-        new java.lang.String[] { "City", "Category", });
+        new java.lang.String[] { "City", "Category", "Event", });
     internal_static_helloworld_Notification_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_helloworld_Notification_fieldAccessorTable = new

@@ -12,6 +12,7 @@ public class SubscriptionHandler {
 
     private Map<Integer, String> cities = new HashMap<>();
     private Map<Integer, String> categories = new HashMap<>();
+    private Map<Integer, Event> events = new HashMap<>();
 
 
     public SubscriptionHandler(){
@@ -24,6 +25,10 @@ public class SubscriptionHandler {
         this.categories.put(3, "Low_Kick");
         this.categories.put(4, "Kick_Light");
         this.categories.put(5, "Muay_Thai");
+
+        this.events.put(1, Event.ATHLETE);
+        this.events.put(2, Event.ATHLETE);
+        this.events.put(3, Event.AMATEUR);
 
     }
 
@@ -106,23 +111,13 @@ public class SubscriptionHandler {
 
         for (Map.Entry<StreamObserver<Notification>, Subscription> entry : this.subscribers.entrySet()){
             if (entry.getValue().getCategoryList().contains(this.categories.get(random_category))
-                && entry.getValue().getCityList().contains(this.cities.get(random_city))){
+                && entry.getValue().getCityList().contains(this.cities.get(random_city))
+                && entry.getValue().getEvent() == this.events.get(random_event)  ){
                 entry.getKey().onNext(notification);
             }
 
         }
 
-
-
-        // this.subscribers.forEach((StreamObserver<Notification> responseObserver, Subscription subscription) -> {
-        //     for (String hashtag : notification.getHashtagsList()) {
-        //         if (subscription.getHashtagsList().contains(hashtag)) {
-        //             responseObserver.onNext(notification);
-        //             break;
-        //         }
-        //     }
-        // });
-        // System.out.println("Message published");
     }
 
      public void shutdown() {

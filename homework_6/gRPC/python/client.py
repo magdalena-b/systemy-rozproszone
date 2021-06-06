@@ -75,12 +75,34 @@ def get_categories():
     return categories
 
 
+def get_event():
+
+    print("Wybierz typ zawodów (tylko jeden):")
+    print("1 - amatorskie")
+    print("2 - zawodnicze")
+    input_event = input()
+
+    if input_event == "1":
+        event = helloworld_pb2.Event.AMATEUR
+    elif input_event == "2":
+        event = helloworld_pb2.Event.ATHLETE
+    else:
+        print("Nieprawidłowy input")
+        event = get_event()
+
+    return event
+
+
+    
+
+
 def run():
 
     cities = get_cities()
     categories = get_categories()
+    event = get_event()
 
-    subscription = helloworld_pb2.Subscription(city=cities, category=categories)
+    subscription = helloworld_pb2.Subscription(city=cities, category=categories, event=event)
 
     try:
         while True:
@@ -90,7 +112,7 @@ def run():
                 try:
                     iterator = stub.subscribe(subscription)
                     for notification in iterator:
-                        print(notification)
+                        print(notification.message)
 
                     print('Server disconnected gracefully')
 
