@@ -4,6 +4,7 @@ import logging
 
 import grpc
 import threading
+import time
 
 import helloworld_pb2 as helloworld_pb2
 import helloworld_pb2_grpc as helloworld_pb2_grpc
@@ -94,8 +95,6 @@ def get_event():
 
 
     
-
-
 def run():
 
     cities = get_cities()
@@ -115,20 +114,18 @@ def run():
                         print(notification.message)
 
                     print('Server disconnected gracefully')
+                    exit()
 
                 except grpc.RpcError as e:
                     status_code = e.code()
 
-                    if e.details() == 'Stream removed':
-                        print('Server disconnected, trying to reconnect...')
-                        pass
-
-                    elif status_code == grpc.StatusCode.UNAVAILABLE:
+                    if status_code == grpc.StatusCode.UNAVAILABLE:
                         print('Server unavailable')
-
+                        time.sleep(2)
+                    
                     else:
                         print(e)
-                        raise SystemExit
+                        exit()
 
     except KeyboardInterrupt:
         pass

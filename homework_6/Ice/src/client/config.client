@@ -2,9 +2,6 @@
 # The client reads this property to create the reference to the
 # "hello" object in the server.
 #
-Calc1.Proxy=calc11:tcp -h localhost -p 10000:udp -h localhost -p 10000:ssl -h localhost -p 10001
-
-#
 # Warn about connection exceptions.
 #
 Ice.Warn.Connections=1
