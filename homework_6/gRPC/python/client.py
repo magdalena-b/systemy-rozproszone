@@ -103,10 +103,20 @@ def run():
 
     subscription = helloworld_pb2.Subscription(city=cities, category=categories, event=event)
 
+
+    options = [
+        ('grpc.keepalive_time_ms', 10000),
+        ('grpc.keepalive_timeout_ms', 5000),
+        ('grpc.keepalive_permit_without_calls', 1),
+        ('grpc.http2_max_pings_without_data', 0),
+        ('grpc.http2_min_sent_ping_interval_without_data_ms', 10000)
+    ]
+
     try:
         while True:
             with grpc.insecure_channel('0.0.0.0:50051') as channel:
                 stub = helloworld_pb2_grpc.NotificatorStub(channel)
+
 
                 try:
                     iterator = stub.subscribe(subscription)
